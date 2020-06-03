@@ -13,7 +13,7 @@ object Main {
 
     runExample("Conversion")(Conversion.test)
 
-    runExample("Union Types")(UnionTypes.test)
+    //runExample("Union Types")(UnionTypes.test)
 
     runExample("Intersection Types")(IntersectionTypes.test)
 
