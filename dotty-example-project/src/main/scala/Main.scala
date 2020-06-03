@@ -13,7 +13,7 @@ object Main {
 
     runExample("Conversion")(Conversion.test)
 
-    //runExample("Union Types")(UnionTypes.test)
+    runExample("Union Types")(UnionTypes.test)
 
     runExample("Intersection Types")(IntersectionTypes.test)
 
@@ -25,9 +25,9 @@ object Main {
 
     runExample("Auto Param Tupling")(AutoParamTupling.test)
 
-    //runExample("Structural Types")(StructuralTypes.test)
+    runExample("Structural Types")(StructuralTypes.test)
 
-    //runExample("Pattern Matching")(PatternMatching.test)
+    runExample("Pattern Matching")(PatternMatching.test)
 
   }
 
