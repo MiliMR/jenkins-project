@@ -16,7 +16,6 @@ pipeline {
             steps {
 
                 dir('dotty-example-project'){
-
                     sh 'pwd'
                     //sh 'sbt dependencyCheck'
                     //archiveArtifacts artifacts: '**/target/scala-0.24/*.html', fingerprint: true, onlyIfSuccessful: true
