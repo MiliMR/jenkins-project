@@ -7,11 +7,12 @@ import scala.util.Try
   * - http://dotty.epfl.ch/docs/reference/contextual/query-types.html,
   * - https://www.scala-lang.org/blog/2016/12/07/implicit-function-types.html
   */
+
 object ContextQueries /* Formerly known as Implicit Function Types */ {
 
   object context {
     // type alias Contextual
-    type Contextual[T] = ExecutionContext ?=> T
+    //type Contextual[T] = ExecutionContext ?=> T
 
     // sum is expanded to sum(x, y)(ctx)
     def asyncSum(x: Int, y: Int): Contextual[Future[Int]] = Future(x + y)
