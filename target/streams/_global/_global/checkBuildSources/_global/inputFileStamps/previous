@@ -1,0 +1,1 @@
+["sbt.Task[scala.collection.Seq[scala.Tuple2[java.nio.file.Path, sbt.nio.FileStamp]]]",{"hashes":[["/home/mili/gitR/chatbridge-research/dotty-example-project/build.sbt","2eca3f02728601b7a8251bfcf09247e4ed82c100"],["/home/mili/gitR/chatbridge-research/dotty-example-project/project/plugins.sbt","e441fb72db4949ea1679a62504d1dd57b06fb6a3"]],"lastModifiedTimes":[]}]
