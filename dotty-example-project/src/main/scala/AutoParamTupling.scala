@@ -18,7 +18,7 @@ object AutoParamTupling {
       * Note: The expected type requires a one-argument function accepting a 2-Tuple.
       * Consider a pattern matching anonymous function, `{ case (s, i) =>  ... }`
       */
-    xs.zipWithIndex.map((s, i) => println(s"$i: $s"))
+    //xs.zipWithIndex.map((s, i) => println(s"$i: $s"))
 
   }
 }
