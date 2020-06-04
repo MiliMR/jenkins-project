@@ -8,6 +8,8 @@ pipeline {
                     sh 'sbt clean compile'
                 }
             }
+            
+            
         }
         stage('Dependencies Check') {
             steps {
