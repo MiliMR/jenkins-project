@@ -28,6 +28,11 @@ pipeline {
             }
         }
     }
+    post{
+        always{
+            echo "FINISHED"
+        }
+    }
     /*post{
         success{
          sh 'curl "https://api.GitHub.com/repos/MiliMR/jenkins-project/statuses/$GIT_COMMIT?access_token=fc0580cb95116e8639cde0192eccd173d97c1605" \
