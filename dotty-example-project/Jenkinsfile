@@ -4,7 +4,7 @@ pipeline {
         stage('Compile') {
             steps {
                 dir('dotty-example-project'){
-                    sh 'pwd'
+                    //sh 'pwd'
                     sh 'sbt clean compile'
                 }
             }
