@@ -13,6 +13,11 @@ that does not work with dotty, try to disable all plugins in
 
 ### IDE support
 
+
+
+
+
+
 Dotty comes built-in with IDE support, to try it out see
 http://dotty.epfl.ch/docs/usage/ide-support.html
 
