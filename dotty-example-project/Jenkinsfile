@@ -29,16 +29,16 @@ pipeline {
     }
     post{
             success{
-                curl "https://api.GitHub.com/repos/MiliMR/jenkins-project/statuses/$GIT_COMMIT?access_token=c8b51209f9d5aac67b576a03a3fd9cee0605b12b" \
+                sh 'curl "https://api.GitHub.com/repos/MiliMR/jenkins-project/statuses/$GIT_COMMIT?access_token=c8b51209f9d5aac67b576a03a3fd9cee0605b12b" \
                   -H "Content-Type: application/json" \
                   -X POST \
-                  -d "{\"state\": \"success\",\"context\": \"continuous-integration/jenkins\", \"description\": \"Jenkins\", \"target_url\": \"https://550f751b08e9.ngrok.io/job/manage-pipeline/$BUILD_NUMBER/console\"}"
+                  -d "{\"state\": \"success\",\"context\": \"continuous-integration/jenkins\", \"description\": \"Jenkins\", \"target_url\": \"https://550f751b08e9.ngrok.io/job/manage-pipeline/$BUILD_NUMBER/console\"}"'
             }
             failure{
-                curl "https://api.GitHub.com/repos/MiliMR/jenkins-project/statuses/$GIT_COMMIT?access_token=c8b51209f9d5aac67b576a03a3fd9cee0605b12b" \
+                sh 'curl "https://api.GitHub.com/repos/MiliMR/jenkins-project/statuses/$GIT_COMMIT?access_token=c8b51209f9d5aac67b576a03a3fd9cee0605b12b" \
                   -H "Content-Type: application/json" \
                   -X POST \
-                  -d "{\"state\": \"failure\",\"context\": \"continuous-integration/jenkins\", \"description\": \"Jenkins\", \"target_url\": \"https://550f751b08e9.ngrok.io/job/manage-pipeline/$BUILD_NUMBER/console\"}"
+                  -d "{\"state\": \"failure\",\"context\": \"continuous-integration/jenkins\", \"description\": \"Jenkins\", \"target_url\": \"https://550f751b08e9.ngrok.io/job/manage-pipeline/$BUILD_NUMBER/console\"}"'
             }
         }
 }
