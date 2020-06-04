@@ -8,14 +8,12 @@ pipeline {
                     sh 'sbt clean compile'
                 }
             }
-
-
         }
         stage('Dependencies Check') {
-
             steps {
 
                 dir('dotty-example-project'){
+
                     sh 'pwd'
                     //sh 'sbt dependencyCheck'
                     //archiveArtifacts artifacts: '**/target/scala-0.24/*.html', fingerprint: true, onlyIfSuccessful: true
@@ -26,6 +24,20 @@ pipeline {
                     dependencyCheckPublisher pattern: 'build/owasp/dependency-check-report.xml'
                 }
             }
+        }
+    }
+    post{
+        success{
+            sh 'curl "https://api.GitHub.com/repos/MiliMR/jenkins-project/statuses/$GIT_COMMIT?access_token=fc0580cb95116e8639cde0192eccd173d97c1605" \
+            -H "Content-Type: application/json" \
+            -X POST \
+            -d "{\"state\": \"success\",\"context\": \"check/jenkins\", \"description\": \"Jenkins\", \"target_url\": \"https://550f751b08e9.ngrok.io/job/manage-pipeline/$BUILD_NUMBER/console\"}"'
+        }
+        failure{
+            sh 'curl "https://api.GitHub.com/repos/MiliMR/jenkins-project/statuses/$GIT_COMMIT?access_token=fc0580cb95116e8639cde0192eccd173d97c1605" \
+            -H "Content-Type: application/json" \
+            -X POST \
+            -d "{\"state\": \"failure\",\"context\": \"check/jenkins\", \"description\": \"Jenkins\", \"target_url\": \"https://550f751b08e9.ngrok.io/job/manage-pipeline/$BUILD_NUMBER/console\"}"'
         }
     }
 }
