@@ -26,7 +26,7 @@ pipeline {
             }
         }
     }
-    post{
+   /* post{
         success{
             sh 'curl "https://api.GitHub.com/repos/MiliMR/jenkins-project/statuses/$GIT_COMMIT?access_token=fc0580cb95116e8639cde0192eccd173d97c1605" \
             -H "Content-Type: application/json" \
@@ -40,5 +40,5 @@ pipeline {
             -X POST \
             -d "{\"state\": \"failure\",\"context\": \"check/jenkins\", \"description\": \"Jenkins\", \"target_url\": \"https://550f751b08e9.ngrok.io/job/manage-pipeline/$BUILD_NUMBER/console\"}"'
         }
-    }
+    }*/
 }
