@@ -9,8 +9,7 @@ object Main {
     runExample("Conversion")(Conversion.test)
     runExample("Union Types")(UnionTypes.test)
     runExample("Intersection Types")(IntersectionTypes.test)
-
-    //runExample("Type Lambda")(TypeLambdas.test)
+    runExample("Type Lambda")(TypeLambdas.test)
 
     runExample("Multiversal Equality")(MultiversalEquality.test)
 
