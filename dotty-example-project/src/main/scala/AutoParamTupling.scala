@@ -20,6 +20,5 @@ object AutoParamTupling {
       * Consider a pattern matching anonymous function, `{ case (s, i) =>  ... }`
       */
     xs.zipWithIndex.map((s, i) => println(s"$i: $s"))
-
   }
 }
