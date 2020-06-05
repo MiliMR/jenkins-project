@@ -32,7 +32,7 @@ pipeline {
         always{
             echo "FINISHED"
         }
-    }
+    }/*
     post{
         success{
          sh 'curl "https://api.GitHub.com/repos/MiliMR/jenkins-project/statuses/$GIT_COMMIT?access_token=75520b18d757d8310464b1053a8ea4acf8b7ffa2" \
@@ -45,5 +45,5 @@ pipeline {
             -X POST \
             -d "{\"state\": \"failure\",\"context\": \"check/jenkins\", \"description\": \"Another Jenkins\", \"target_url\": \"https://6d74e12b3b76.eu.ngrok.io/job/manage-pipeline/$BUILD_NUMBER/console\"}"'
         }
-    }
+    }*/
 }
