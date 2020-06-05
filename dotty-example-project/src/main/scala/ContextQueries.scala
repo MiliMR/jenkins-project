@@ -2,7 +2,6 @@
 import scala.concurrent.{ExecutionContext, Future}
 import scala.util.Try
 
-
 /**
   * Context Queries:
   * - http://dotty.epfl.ch/docs/reference/contextual/query-types.html,
