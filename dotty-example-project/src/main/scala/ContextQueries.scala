@@ -8,6 +8,8 @@ import scala.util.Try
   * - https://www.scala-lang.org/blog/2016/12/07/implicit-function-types.html
   */
 
+
+
 object ContextQueries /* Formerly known as Implicit Function Types */ {
 
   object context {
