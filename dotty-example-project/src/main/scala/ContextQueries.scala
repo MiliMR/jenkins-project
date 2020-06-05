@@ -13,10 +13,10 @@ object ContextQueries /* Formerly known as Implicit Function Types */ {
 
   object context {
     // type alias Contextual
-    type Contextual[T] = ExecutionContext ?=> T
+    //type Contextual[T] = ExecutionContext ?=> T
 
     // sum is expanded to sum(x, y)(ctx)
-    def asyncSum(x: Int, y: Int): Contextual[Future[Int]] = Future(x + y)
+   // def asyncSum(x: Int, y: Int): Contextual[Future[Int]] = Future(x + y)
 
     def asyncMult(x: Int, y: Int)(using ctx: ExecutionContext) = Future(x * y)
   }
