@@ -16,7 +16,6 @@ pipeline {
                     branch: "**")
                 }
             }
-            
         }
         stage('Compile') {
             steps {
