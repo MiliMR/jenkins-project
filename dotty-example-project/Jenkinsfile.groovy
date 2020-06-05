@@ -1,4 +1,4 @@
-def check_runs = new buildGithubCheckScript()
+def check_runs = new com.function.buildGithubCheckScript()
 pipeline {
     agent {
         kubernetes {
