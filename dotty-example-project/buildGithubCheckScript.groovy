@@ -16,9 +16,9 @@ import java.util.Base64.Decoder
 import org.apache.commons.codec.binary.Base64
 import org.codehaus.groovy.runtime.GStringImpl
 
-APP_ID = <APP_ID>
-INSTALLATION_ID = <INSTALLATION_ID>
-ORGANIZATION_NAME = <ORGANIZATION_NAME>
+APP_ID = 67776
+INSTALLATION_ID = 9526648
+ORGANIZATION_NAME = "MiliMR"
 
 // Custom HTTP request method
 def setRequestMethod( HttpURLConnection c,  String requestMethod) {
