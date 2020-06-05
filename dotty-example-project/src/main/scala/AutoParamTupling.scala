@@ -2,6 +2,7 @@
 /**
   * Automatic Tupling of Function Params: https://dotty.epfl.ch/docs/reference/other-new-features/auto-parameter-tupling.html
   */
+
 object AutoParamTupling {
 
   def test: Unit = {
@@ -19,6 +20,5 @@ object AutoParamTupling {
       * Consider a pattern matching anonymous function, `{ case (s, i) =>  ... }`
       */
     xs.zipWithIndex.map((s, i) => println(s"$i: $s"))
-
   }
 }
