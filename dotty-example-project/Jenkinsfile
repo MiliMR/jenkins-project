@@ -17,6 +17,7 @@ pipeline {
                 }
             }
         }
+        
         stage('Compile') {
             steps {
                 dir('dotty-example-project'){
