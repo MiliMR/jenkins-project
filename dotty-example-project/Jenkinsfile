@@ -48,8 +48,8 @@
                 error("Deployment Status API Update Failed: " + deployStatusResponse.status)
               }
            }
-        }
-    }/*
+        }/*
+    }
     stages {
         stage('Compile') {
             steps {
