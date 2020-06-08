@@ -35,7 +35,6 @@ object EnumTypes {
       for (p <- Planet.values)
         println(s"Your weight on $p is ${p.surfaceWeight(mass)}")
     }
-
     calculateEarthWeightOnPlanets(80)
   }
 
