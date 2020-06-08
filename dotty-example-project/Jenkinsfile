@@ -1,14 +1,15 @@
-def check_runs = new main.script.buildGithubCheckScript()
+//def check_runs = new main.script.buildGithubCheckScript()
 pipeline {
-    agent {
+    /*agent {
         kubernetes {
             label "GitHub-Check-Runs-${UUID.randomUUID().toString().substring(0,8)}"
             defaultContainer 'jnlp'
         }
     }
-    //agent any
+    */
+    agent any
     stages {
-        stage('Checkout') {
+        /*stage('Checkout') {
             steps {
                 script {
                     git (credentialsId: 'github-token',
@@ -16,11 +17,11 @@ pipeline {
                     branch: "**")
                 }
             }
-        }
+        }*/
         stage('Compile') {
             steps {
                 dir('dotty-example-project'){
-                    withCredentials([sshUserPrivateKey(credentialsId: '<credentialsId>', keyFileVariable: 'privateKey', passphraseVariable: '', usernameVariable: '')]) {
+                    /*withCredentials([sshUserPrivateKey(credentialsId: '<credentialsId>', keyFileVariable: 'privateKey', passphraseVariable: '', usernameVariable: '')]) {
                         try {
                             build_command = sh(script: "sbt clean compile", returnStatus: true)
                             check_runs.buildGithubCheck(jenkins-project, $GIT_COMMIT, privateKey, 'success', "compile")
@@ -29,15 +30,16 @@ pipeline {
                             echo "Exception: ${e}"
                         }
                     }
-                    /*sh 'pwd'
-                    sh 'sbt clean compile'*/
+                    */
+                    sh 'pwd'
+                    sh 'sbt clean compile
                 }
             }
         }
         stage('Create Result Dir') {
             steps {
                 dir('dotty-example-project'){
-                    withCredentials([sshUserPrivateKey(credentialsId: '<credentialsId>', keyFileVariable: 'privateKey', passphraseVariable: '', usernameVariable: '')]) {
+                    /*withCredentials([sshUserPrivateKey(credentialsId: '<credentialsId>', keyFileVariable: 'privateKey', passphraseVariable: '', usernameVariable: '')]) {
                         try {
                             remove_command = sh(script: "rm -rf build/owasp", returnStatus: true)
                             create_dir_command = sh(script: "mkdir -p build/owasp", returnStatus: true)
@@ -46,14 +48,16 @@ pipeline {
                             check_runs.buildGithubCheck(jenkins-project, $GIT_COMMIT, privateKey, 'failure', "create_dir")
                             echo "Exception: ${e}"
                         }
-                    }
+                    }*/
+                    sh 'rm -rf build/owasp'
+                    sh 'mkdir -p build/owasp'
                 }
             }
         }
         stage('Dependencies Check') {
             steps {
                 dir('dotty-example-project'){
-                    withCredentials([sshUserPrivateKey(credentialsId: '<credentialsId>', keyFileVariable: 'privateKey', passphraseVariable: '', usernameVariable: '')]) {
+                    /*withCredentials([sshUserPrivateKey(credentialsId: '<credentialsId>', keyFileVariable: 'privateKey', passphraseVariable: '', usernameVariable: '')]) {
                         try {
                             dependencycheck additionalArguments: '--project dotty-example-project --scan . --out build/owasp/dependency-check-report.xml --format XML --noupdate', odcInstallation: 'Dependency Checker'
                             dependencyCheckPublisher pattern: 'build/owasp/dependency-check-report.xml'
@@ -63,10 +67,8 @@ pipeline {
                             echo "Exception: ${e}"
                         }
                     }
-                    /*sh 'pwd'
+                    */
                     sh 'sbt dependencyCheck'
-                    sh 'rm -rf build/owasp'
-                    sh 'mkdir -p build/owasp'
                     dependencycheck additionalArguments: '--project dotty-example-project --scan . --out build/owasp/dependency-check-report.xml --format XML --noupdate', odcInstallation: 'Dependency Checker'
                     sh 'ls -alh build/owasp'
                     dependencyCheckPublisher pattern: 'build/owasp/dependency-check-report.xml' */
@@ -74,12 +76,8 @@ pipeline {
             }
         }
 
-    }/*
-    post{
-        always{
-            echo "FINISHED"
-        }
     }
+    /*
     post{
         success{
          sh 'curl "https://api.GitHub.com/repos/MiliMR/jenkins-project/statuses/$GIT_COMMIT?access_token=75520b18d757d8310464b1053a8ea4acf8b7ffa2" \
