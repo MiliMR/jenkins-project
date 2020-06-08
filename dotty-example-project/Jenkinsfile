@@ -1,6 +1,6 @@
-pipeline {
+/*pipeline {
     agent {
-        node {
+  */      node {
             def scmVars
 
             stage('build') {
@@ -49,7 +49,7 @@ pipeline {
               }
            }
         }
-    }
+    }/*
     stages {
         stage('Compile') {
             steps {
@@ -81,3 +81,4 @@ pipeline {
 
     }
 }
+*/
