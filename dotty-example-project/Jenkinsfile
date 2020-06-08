@@ -35,7 +35,7 @@
 
               // Record new Deployment Status based on output
               def result = (deployStatus) ? 'failure' : 'success'
-              def deployStatusBody = '{"state": "' + result + '","target_url": "http://github.com/deploymentlogs"}'
+              def deployStatusBody = '{"state": "' + result + '","target_url": "https://8eddad78c79.eu.ngrok.io/blue/organizations/jenkins/pipeline-blue-ocean/detail/MiliMR-patch-1/17/pipeline/"}'
               def deployStatusURL = "https://api.github.com/repos/${owner}/${repo}/deployments/${id}/statuses"
                 def deployStatusResponse = httpRequest httpMode: 'POST', requestBody: deployStatusBody , responseHandle: 'STRING', url: deployStatusURL
               if(deployStatusResponse.status != 201) {
