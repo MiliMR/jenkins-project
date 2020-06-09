@@ -31,7 +31,9 @@ pipeline {
                    )
                 }
                 script {
-                    if(false){
+                    DCreport='dotty-example-project/build/owasp/dependency-check-report.xml'
+                    SearchString='<vulnerabilities>'
+                    if(sh'grep -q $SearchString "$DCreport"'){
                         currentBuild.result = 'UNSTABLE'
                         currentBuild.description = 'Vulnerabilities detected'
                     }
