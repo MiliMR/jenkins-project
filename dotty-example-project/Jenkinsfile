@@ -29,7 +29,11 @@ pipeline {
                                 unstableTotalHigh: '0',
                                 pattern: 'build/owasp/dependency-check-report.xml',
                    )
-                    currentBuild.result = "UNSTABLE"
+                }
+                script {
+                    
+                        currentBuild.result = 'UNSTABLE'
+                    
                 }
             }
         }
