@@ -38,8 +38,9 @@ pipeline {
         success{
             script {
                 try {
-                    echo dependencyCheckPublisher.failedTotalCritical
+                    //echo dependencyCheckPublisher.failedTotalCritical
                     sh 'grep -q "<dataSource>" dotty-example-project/build/owasp/dependency-check-report.xml'
+                    sh 'echo $?'
                     /*if (result.length > 0){
                         currentBuild.result = 'UNSTABLE'
                         currentBuild.description = 'Vulnerabilities detected'
