@@ -30,35 +30,24 @@ pipeline {
                                 pattern: 'build/owasp/dependency-check-report.xml',
                    )
                 }
-                script {
-                    try {
-                        sh 'result = $(grep -q "<dataSource>" dotty-example-project/build/owasp/dependency-check-report.xml)'
-                        echo ${result}
-                        /*if (result.length > 0){
-                            currentBuild.result = 'UNSTABLE'
-                            currentBuild.description = 'Vulnerabilities detected'
-                        }*/
-                    }
-                    catch (exc) {
-                       echo 'No vulnerabilities found'
-                    }
-                }
             }
         }
 
     }
-    /*
     post{
         success{
-         sh 'curl "https://api.GitHub.com/repos/MiliMR/jenkins-project/statuses/$GIT_COMMIT?access_token=75520b18d757d8310464b1053a8ea4acf8b7ffa2" \
-            -H "Content-Type: application/json" \
-            -X POST \
-            -d "{\"state\": \"success\",\"context\": \"check/jenkins\", \"description\": \"Another Jenkins\", \"target_url\": \"https://6d74e12b3b76.eu.ngrok.io/job/manage-pipeline/$BUILD_NUMBER/console\"}"'        }
-        failure{
-            sh 'curl "https://api.GitHub.com/repos/MiliMR/jenkins-project/statuses/$GIT_COMMIT?access_token=75520b18d757d8310464b1053a8ea4acf8b7ffa2" \
-            -H "Content-Type: application/json" \
-            -X POST \
-            -d "{\"state\": \"failure\",\"context\": \"check/jenkins\", \"description\": \"Another Jenkins\", \"target_url\": \"https://6d74e12b3b76.eu.ngrok.io/job/manage-pipeline/$BUILD_NUMBER/console\"}"'
+            script {
+                try {
+                    sh 'grep -q "<dataSource>" dotty-example-project/build/owasp/dependency-check-report.xml'
+                    /*if (result.length > 0){
+                        currentBuild.result = 'UNSTABLE'
+                        currentBuild.description = 'Vulnerabilities detected'
+                    }*/
+                } catch (exc) {
+                    echo 'No vulnerabilities found'
+                }
+            }
         }
-    }*/
+       
+    }
 }
