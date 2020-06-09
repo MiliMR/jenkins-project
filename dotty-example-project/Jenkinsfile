@@ -31,15 +31,9 @@ pipeline {
                    )
                 }
                 script {
-                    /*
-                    def DCreport='dotty-example-project/build/owasp/dependency-check-report.xml'
-                    def SearchString='<vulnerabilities>'
-                    def foundVulnerabilities = grep -q dotty-example-project/build/owasp/dependency-check-report.xml "<vulnerabilities>"
-                    if( foundVulnerabilities ){
-                        
-                    } */
                     try {
-                        def result = sh 'grep -q "<dataSource>" dotty-example-project/build/owasp/dependency-check-report.xml'
+                        def result = sh 'grep -q "<vulnerabilities>" dotty-example-project/build/owasp/dependency-check-report.xml'
+                        echo $result
                         /*if (result.length > 0){
                             currentBuild.result = 'UNSTABLE'
                             currentBuild.description = 'Vulnerabilities detected'
