@@ -39,11 +39,14 @@ pipeline {
                         
                     } */
                     try {
-                        sh 'grep -q dotty-example-project/build/owasp/dependency-check-report.xml "<vulnerabilities>"'
+                        def result = sh 'grep -q dotty-example-project/build/owasp/dependency-check-report.xml "<vulnerabilities>"'
+                        if (result.length > 0){
+                            currentBuild.result = 'UNSTABLE'
+                            currentBuild.description = 'Vulnerabilities detected'
+                        }
                     }
                     catch (exc) {
-                        currentBuild.result = 'UNSTABLE'
-                        currentBuild.description = 'Vulnerabilities detected'
+                       echo 'failed'
                     }
                 }
             }
