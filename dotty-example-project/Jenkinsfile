@@ -21,6 +21,7 @@ pipeline {
             steps {
                 dir('dotty-example-project'){
                     sh 'sbt dependencyCheck'
+                    archiveArtifacts artifacts: '**/target/scala-0.24/*.html', fingerprint: true, onlyIfSuccessful: true
                     dependencycheck additionalArguments: '--project dotty-example-project --scan . --out build/owasp/dependency-check-report.xml --format XML --noupdate', odcInstallation: 'Dependency Checker'
                     sh 'ls -alh build/owasp'
                     //dependencyCheckPublisher pattern: 'build/owasp/dependency-check-report.xml' 
@@ -38,8 +39,8 @@ pipeline {
         success{
             script {
                 try {
+                    sh 'grep -w "Vulnerable Dependencies: [0-9]*" dotty-example-project/target/scala-0.24/dependency-check-report.html'
                     def failded = dependencyCheckPublisher.failedTotalCritical
-                    sh 'grep "<dataSource>" dotty-example-project/build/owasp/dependency-check-report.xml'
                     sh 'echo $?'
                     /*if (result.length > 0){
                         currentBuild.result = 'UNSTABLE'
