@@ -39,11 +39,12 @@ pipeline {
                         
                     } */
                     try {
-                        def result = sh 'grep -q dotty-example-project/build/owasp/dependency-check-report.xml "<dataSource>"'
-                        if (result.length > 0){
+                        sh 'ls -alh build/owasp/dependency-check-report.xml'
+                        //def result = sh 'grep -q dotty-example-project/build/owasp/dependency-check-report.xml "<dataSource>"'
+                        /*if (result.length > 0){
                             currentBuild.result = 'UNSTABLE'
                             currentBuild.description = 'Vulnerabilities detected'
-                        }
+                        }*/
                     }
                     catch (exc) {
                        echo 'failed'
