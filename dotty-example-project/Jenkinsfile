@@ -39,7 +39,7 @@ pipeline {
                         
                     } */
                     try {
-                        sh 'ls -alh build/owasp/dependency-check-report.xml'
+                        sh 'ls -alh build/owasp/'
                         //def result = sh 'grep -q dotty-example-project/build/owasp/dependency-check-report.xml "<dataSource>"'
                         /*if (result.length > 0){
                             currentBuild.result = 'UNSTABLE'
