@@ -38,7 +38,7 @@ pipeline {
         success{
             script {
                 try {
-                    def failded = ${{dependencyCheckPublisher.failedTotalCritical}}
+                    def failded = dependencyCheckPublisher.failedTotalCritical
                     sh 'grep "<dataSource>" dotty-example-project/build/owasp/dependency-check-report.xml'
                     sh 'echo $?'
                     /*if (result.length > 0){
