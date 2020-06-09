@@ -32,7 +32,7 @@ pipeline {
                 }
                 script {
                     try {
-                        def result = sh 'grep -q "<vulnerabilities>" dotty-example-project/build/owasp/dependency-check-report.xml'
+                        def result = sh 'grep -q "<scanInfo>" dotty-example-project/build/owasp/dependency-check-report.xml'
                         echo $result
                         /*if (result.length > 0){
                             currentBuild.result = 'UNSTABLE'
@@ -40,7 +40,7 @@ pipeline {
                         }*/
                     }
                     catch (exc) {
-                       echo 'failed'
+                       echo 'No vulnerabilities found'
                     }
                 }
             }
