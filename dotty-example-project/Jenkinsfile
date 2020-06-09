@@ -18,6 +18,11 @@ pipeline {
             }
         }
         stage('Dependencies Check') {
+            node {
+                if (true) {
+                         currentBuild.result = "UNSTABLE"
+                    } 
+            }
             steps {
                 dir('dotty-example-project'){
                     sh 'sbt dependencyCheck'
@@ -29,9 +34,6 @@ pipeline {
                                 unstableTotalHigh: '0',
                                 pattern: 'build/owasp/dependency-check-report.xml',
                    )
-                    if (true) {
-                         currentBuild.result = "UNSTABLE"
-                    } 
                 }
             }
         }
