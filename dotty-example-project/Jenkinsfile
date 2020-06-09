@@ -25,11 +25,8 @@ pipeline {
                     sh 'ls -alh build/owasp'
                     //dependencyCheckPublisher pattern: 'build/owasp/dependency-check-report.xml' 
                     dependencyCheckPublisher(
-                                //canComputeNew: false,
-                                defaultEncoding: '',
                                 unstableTotalCritical: '0',
                                 unstableTotalHigh: '0',
-                                healthy: '',
                                 pattern: 'build/owasp/dependency-check-report.xml',
                    )
                 }
