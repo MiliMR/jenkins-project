@@ -33,7 +33,7 @@ pipeline {
                 script {
                     def DCreport='dotty-example-project/build/owasp/dependency-check-report.xml'
                     def SearchString='<vulnerabilities>'
-                    def foundVulnerabilities = grep -q $SearchString "$DCreport"
+                    def foundVulnerabilities = grep -q ${SearchString} "${DCreport}"
                     if( foundVulnerabilities ){
                         currentBuild.result = 'UNSTABLE'
                         currentBuild.description = 'Vulnerabilities detected'
