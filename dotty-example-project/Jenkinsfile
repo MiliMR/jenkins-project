@@ -31,9 +31,8 @@ pipeline {
                    )
                 }
                 script {
-                    
-                        currentBuild.result = 'UNSTABLE'
-                    
+                    currentBuild.result = 'UNSTABLE'
+                    currentBuild.description = 'Vulnerabilities detected'
                 }
             }
         }
