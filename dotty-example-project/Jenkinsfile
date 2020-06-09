@@ -17,17 +17,38 @@ pipeline {
                 }
             }
         }
-        
         stage('Dependencies Check') {
             steps {
                 dir('dotty-example-project'){
-                    //sh 'sbt dependencyCheck'
+                    sh 'sbt dependencyCheck'
                     dependencycheck additionalArguments: '--project dotty-example-project --scan . --out build/owasp/dependency-check-report.xml --format XML --noupdate', odcInstallation: 'Dependency Checker'
                     sh 'ls -alh build/owasp'
-                    dependencyCheckPublisher pattern: 'build/owasp/dependency-check-report.xml' 
-                    
+                    //dependencyCheckPublisher pattern: 'build/owasp/dependency-check-report.xml' 
+                    dependencyCheckPublisher(
+                                unstableTotalCritical: '0',
+                                unstableTotalHigh: '0',
+                                pattern: 'build/owasp/dependency-check-report.xml',
+                   )
+                    if (true) {
+                         currentBuild.result = "UNSTABLE"
+                    } 
                 }
             }
         }
+
     }
+    /*
+    post{
+        success{
+         sh 'curl "https://api.GitHub.com/repos/MiliMR/jenkins-project/statuses/$GIT_COMMIT?access_token=75520b18d757d8310464b1053a8ea4acf8b7ffa2" \
+            -H "Content-Type: application/json" \
+            -X POST \
+            -d "{\"state\": \"success\",\"context\": \"check/jenkins\", \"description\": \"Another Jenkins\", \"target_url\": \"https://6d74e12b3b76.eu.ngrok.io/job/manage-pipeline/$BUILD_NUMBER/console\"}"'        }
+        failure{
+            sh 'curl "https://api.GitHub.com/repos/MiliMR/jenkins-project/statuses/$GIT_COMMIT?access_token=75520b18d757d8310464b1053a8ea4acf8b7ffa2" \
+            -H "Content-Type: application/json" \
+            -X POST \
+            -d "{\"state\": \"failure\",\"context\": \"check/jenkins\", \"description\": \"Another Jenkins\", \"target_url\": \"https://6d74e12b3b76.eu.ngrok.io/job/manage-pipeline/$BUILD_NUMBER/console\"}"'
+        }
+    }*/
 }
