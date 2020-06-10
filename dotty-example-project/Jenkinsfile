@@ -9,14 +9,6 @@ pipeline {
                 }
             }
         }
-        stage('Create Result Dir') {
-            steps {
-                dir('dotty-example-project'){
-                    sh 'rm -rf build/owasp'
-                    sh 'mkdir -p build/owasp'
-                }
-            }
-        }
         stage('Dependencies Check') {
             steps {
                 dir('dotty-example-project'){
