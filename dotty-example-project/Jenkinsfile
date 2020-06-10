@@ -40,7 +40,7 @@ pipeline {
             script {
                 try {
                     sh """
-                        grep "<span id="vulnerableCount">[0-9]*</span>" dotty-example-project/target/scala-0.24/dependency-check-report.html
+                        grep -o '<span id="vulnerableCount">[0-9]*</span>' dotty-example-project/target/scala-0.24/dependency-check-report.html
                        """
                     sh 'echo $?'
                     /*if (result.length > 0){
