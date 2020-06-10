@@ -21,13 +21,13 @@ pipeline {
             steps {
                 dir('dotty-example-project'){
                     sh 'sbt dependencyCheck'
-                    dependencycheck additionalArguments: '--project dotty-example-project --scan . --out build/owasp/dependency-check-report.xml --format XML --noupdate', odcInstallation: 'Dependency Checker'
-                    sh 'ls -alh build/owasp'
+                    //dependencycheck additionalArguments: '--project dotty-example-project --scan . --out build/owasp/dependency-check-report.xml --format XML --noupdate', odcInstallation: 'Dependency Checker'
+                    //sh 'ls -alh build/owasp'
                     //dependencyCheckPublisher pattern: 'build/owasp/dependency-check-report.xml' 
                     dependencyCheckPublisher(
                                 unstableTotalCritical: '0',
                                 unstableTotalHigh: '0',
-                                pattern: 'build/owasp/dependency-check-report.xml',
+                                pattern: 'tarjet/scala-0.24/dependency-check-report.xml',
                    )
                 }
             }
