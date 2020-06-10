@@ -39,7 +39,7 @@ pipeline {
         success{
             script {
                 try {
-                    sh 'grep "<i>Vulnerable Dependencies</i>:&nbsp;<span id="vulnerableCount">[0-9]*</span>" dotty-example-project/target/scala-0.24/dependency-check-report.html'
+                    sh 'grep "</span>" dotty-example-project/target/scala-0.24/dependency-check-report.html'
                     sh 'echo $?'
                     /*if (result.length > 0){
                         currentBuild.result = 'UNSTABLE'
