@@ -14,9 +14,17 @@ pipeline {
                 dir('dotty-example-project'){
                     sh 'sbt dependencyCheck'
                     archiveArtifacts artifacts: '**/target/scala-0.24/*.xml', fingerprint: true, onlyIfSuccessful: true
-                    dependencyCheckPublisher pattern: 'tarjet/scala-0.24/dependency-check-report.xml'
+                    //dependencyCheckPublisher pattern: 'tarjet/scala-0.24/dependency-check-report.xml'
                 }
             }
         }
+    }
+    post{
+        success{
+            script {
+                def articles = new XmlParser().parse(**/target/scala-0.24/dependency-check-report.xml)
+            }
+        }
+       
     }
 }
