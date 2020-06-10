@@ -22,7 +22,7 @@ pipeline {
     post{
         success{
             script {
-                def articles = new XmlParser().parse(**/target/scala-0.24/dependency-check-report.xml)
+                def articles = new XmlParser().parse('**/target/scala-0.24/dependency-check-report.xml')
             }
         }
        
