@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    enviroment{
+        PATH = '**/target/scala-0.24/dependency-check-report.xml'
+    }
     stages {
         stage('Compile') {
             steps {
@@ -13,7 +16,7 @@ pipeline {
             steps {
                 dir('dotty-example-project'){
                     sh 'sbt dependencyCheck'
-                    archiveArtifacts artifacts: '**/target/scala-0.24/*.xml', fingerprint: true, onlyIfSuccessful: true
+                    archiveArtifacts artifacts: ${PATH}, fingerprint: true, onlyIfSuccessful: true
                     //dependencyCheckPublisher pattern: 'tarjet/scala-0.24/dependency-check-report.xml'
                 }
             }
@@ -22,7 +25,7 @@ pipeline {
     post{
         success{
             script {
-                def articles = new XmlParser().parse('**/target/scala-0.24/dependency-check-report.xml')
+                //def articles = new XmlParser().parse('**/target/scala-0.24/dependency-check-report.xml')
             }
         }
        
