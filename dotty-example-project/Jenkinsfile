@@ -39,7 +39,7 @@ pipeline {
         success{
             script {
                 try {
-                    def searchWord = '<span id="vulnerableCount\">[0-9]*</span>'
+                    def searchWord = '<span id="vulnerableCount">[0-9]*</span>'
                     sh """
                         grep ${searchWord} dotty-example-project/target/scala-0.24/dependency-check-report.html
                        """
