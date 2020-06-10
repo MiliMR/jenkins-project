@@ -40,7 +40,7 @@ pipeline {
             script {
                 try {
                     def searchWord = '<span id="vulnerableCount\">[0-9]*</span>'
-                    sh 'grep ${searchWord} dotty-example-project/target/scala-0.24/dependency-check-report.html'
+                    sh 'grep '${searchWord}' dotty-example-project/target/scala-0.24/dependency-check-report.html'
                     sh 'echo $?'
                     /*if (result.length > 0){
                         currentBuild.result = 'UNSTABLE'
