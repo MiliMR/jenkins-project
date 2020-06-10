@@ -5,7 +5,7 @@ pipeline {
             steps {
                 dir('dotty-example-project'){
                     sh 'pwd'
-                    //sh 'sbt clean compile'
+                    sh 'sbt clean compile'
                 }
             }
         }
@@ -21,37 +21,17 @@ pipeline {
             steps {
                 dir('dotty-example-project'){
                     sh 'sbt dependencyCheck'
-                    archiveArtifacts artifacts: '**/target/scala-0.24/*.html', fingerprint: true, onlyIfSuccessful: true
-                    dependencycheck additionalArguments: '--project dotty-example-project --scan . --out build/owasp/dependency-check-report.xml --format XML --noupdate', odcInstallation: 'Dependency Checker'
-                    sh 'ls -alh build/owasp'
+                    //dependencycheck additionalArguments: '--project dotty-example-project --scan . --out build/owasp/dependency-check-report.xml --format XML --noupdate', odcInstallation: 'Dependency Checker'
+                    //sh 'ls -alh build/owasp'
                     //dependencyCheckPublisher pattern: 'build/owasp/dependency-check-report.xml' 
+                    //dependencyCheckPublisher 'tarjet/scala-0.24/dependency-check-report.xml'
                     dependencyCheckPublisher(
-                                unstableTotalCritical: '0',
-                                unstableTotalHigh: '0',
-                                pattern: 'build/owasp/dependency-check-report.xml',
+                               // unstableTotalCritical: '0',
+                               // unstableTotalHigh: '0',
+                                pattern: 'tarjet/scala-0.24/dependency-check-report.xml'
                    )
                 }
             }
         }
-
-    }
-    post{
-        success{
-            script {
-                try {
-                    sh """
-                        grep -o '<span id="vulnerableCount">[0-9]*</span>' dotty-example-project/target/scala-0.24/dependency-check-report.html
-                       """
-                    sh 'echo $?'
-                    /*if (result.length > 0){
-                        currentBuild.result = 'UNSTABLE'
-                        currentBuild.description = 'Vulnerabilities detected'
-                    }*/
-                } catch (exc) {
-                    echo 'No vulnerabilities found'
-                }
-            }
-        }
-       
     }
 }
