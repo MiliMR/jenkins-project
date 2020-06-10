@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Starter code for jenkinsFile",
   "scripts": {
-    "test:starter": "jest test/functional/starter.test.js --runInBand",
+    "test:starter": "jest test/analyzeDependencyCheckReport.js",
   },
   "dependencies": {
     "expect-puppeteer": "^4.3.0",
