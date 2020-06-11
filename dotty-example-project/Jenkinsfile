@@ -1,7 +1,7 @@
 pipeline {
     agent any
     stages {
-        stage('Compile') {
+        /*stage('Compile') {
             steps {
                 dir('dotty-example-project'){
                     sh 'sbt clean compile'
@@ -12,17 +12,17 @@ pipeline {
             steps {
                 dir('dotty-example-project'){
                     sh 'sbt dependencyCheck'
-                    archiveArtifacts artifacts: '**/target/scala-0.24/dependency-check-report.xml', fingerprint: true, onlyIfSuccessful: true
+                    archiveArtifacts artifacts: '**0/target/scala-0.24/dependency-check-report.xml', fingerprint: true, onlyIfSuccessful: true
                     //dependencyCheckPublisher pattern: 'tarjet/scala-0.24/dependency-check-report.xml'
                 }
             }
-        }
+        }*/
         stage('Analysis Of Dependency Check Report') {
             steps {
                 dir('dotty-example-project/utils'){
                     sh 'ls'
                     sh 'npm install'
-                    sh 'test:starter'
+                    sh 'npm test'
                 }
             }
         }
