@@ -1,6 +1,8 @@
-def didTest = false
 pipeline {
     agent any
+    environment { 
+        didTest = false
+    }
     stages {
         stage('Compile') {
             steps {
