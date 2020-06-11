@@ -31,6 +31,4 @@ describe('Starter Analysis', () => {
       
       await expect(numberOfDependenciesValue).toMatch("0", { timeout: timeObject.actionTimeout });
     }, TIMEOUT);
-    
-    });
 })
