@@ -1,6 +1,5 @@
 const puppeteer = require('puppeteer');
 require('expect-puppeteer');
-const utils = require('../helper/utils');
 
 let page, browser;
 const TIMEOUT = 120000 
@@ -17,7 +16,6 @@ describe('Starter Analysis', () => {
 
     afterAll(async() => {
       await browser.close();
-      await utils.cleanUp();
     })
   
     it('Search Vulnerabilities in DependencyCheckReport', async () => {
