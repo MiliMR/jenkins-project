@@ -1,19 +1,20 @@
 pipeline {
+    def didTest = false
     agent any
     stages {
-        /*stage('Compile') {
+        stage('Compile') {
             steps {
                 dir('dotty-example-project'){
                     sh 'sbt clean compile'
                 }
             }
-        }*/
+        }
         stage('Dependencies Check') {
             steps {
                 dir('dotty-example-project'){
                     sh 'sbt dependencyCheck'
                     archiveArtifacts artifacts: '**/target/scala-0.24/dependency-check-report.xml', fingerprint: true, onlyIfSuccessful: true
-                    dependencyCheckPublisher pattern: 'tarjet/scala-0.24/dependency-check-report.xml'
+                    //dependencyCheckPublisher pattern: 'tarjet/scala-0.24/dependency-check-report.xml'
                 }
             }
         }
@@ -23,14 +24,18 @@ pipeline {
                     sh 'ls'
                     sh 'npm install'
                     sh 'npm test'
+                    didTest = true
                 }
             }
         }
     }
     post{
-        success{
+        always{
             script {
-                sh "ls"
+                if(didTest && currentBuild.result == 'FAILURE'){
+                    currentBuild.result = 'UNSTABLE'
+                    currentBuild.description = 'Vulnerabilities detected'
+                }
             }
         }
     }
