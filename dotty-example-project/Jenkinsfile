@@ -1,12 +1,11 @@
+def didTest
 pipeline {
     agent any
-    environment { 
-        didTest = false
-    }
     stages {
         stage('Compile') {
             steps {
                 dir('dotty-example-project'){
+                    didTest = false
                     sh 'sbt clean compile'
                 }
             }
