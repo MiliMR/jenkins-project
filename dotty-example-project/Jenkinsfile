@@ -37,6 +37,7 @@ pipeline {
             }
             post{
                 failure{
+                    echo 'Vulnerabilities detected'
                     script {
                         currentBuild.result = 'UNSTABLE'
                         currentBuild.description = 'Vulnerabilities detected'
