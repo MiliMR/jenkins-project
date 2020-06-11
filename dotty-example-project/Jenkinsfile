@@ -1,12 +1,15 @@
-def didTest
 pipeline {
     agent any
     stages {
         stage('Compile') {
             steps {
                 dir('dotty-example-project'){
-                    didTest = false
                     sh 'sbt clean compile'
+                }
+            }
+            post{
+                always{
+                    echo 'Compile done'
                 }
             }
         }
@@ -25,7 +28,6 @@ pipeline {
                     sh 'ls'
                     sh 'npm install'
                     sh 'npm test'
-                    didTest = true
                 }
             }
         }
@@ -33,7 +35,7 @@ pipeline {
     post{
         always{
             script {
-                if(didTest && currentBuild.result == 'FAILURE'){
+                if(currentBuild.result == 'FAILURE'){
                     currentBuild.result = 'UNSTABLE'
                     currentBuild.description = 'Vulnerabilities detected'
                 }
