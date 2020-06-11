@@ -1,7 +1,7 @@
 pipeline {
     agent any
     stages {
-        stage('Compile') {
+       /* stage('Compile') {
             steps {
                 dir('dotty-example-project'){
                     sh 'sbt clean compile'
@@ -13,7 +13,7 @@ pipeline {
                     sh 'rm -rf dotty-example-project/target/scala-0.24/dependency-check-report.xml'
                 }
             }
-        }
+        }*/
         stage('Dependencies Check') {
             steps {
                 dir('dotty-example-project'){
