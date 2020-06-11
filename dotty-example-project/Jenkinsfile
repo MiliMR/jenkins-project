@@ -17,7 +17,7 @@ pipeline {
                 }
             }
         }
-        /*stage('Analysis Of Dependency Check Report') {
+        stage('Analysis Of Dependency Check Report') {
             steps {
                 dir('dotty-example-project/utils'){
                     sh 'ls'
@@ -25,12 +25,12 @@ pipeline {
                     sh 'npm test'
                 }
             }
-        }*/
+        }
     }
     post{
-        unstable{
+        success{
             script {
-                sh "xidel -se '//vulnerabilityIds/text()' dotty-example-project/target/scala-0.24/dependency-check-report.xml"
+                sh "ls"
             }
         }
     }
