@@ -12,7 +12,7 @@ pipeline {
             steps {
                 dir('dotty-example-project'){
                     sh 'sbt dependencyCheck'
-                    archiveArtifacts artifacts: '**/target/scala-0.24/dependency-check-report.xml', fingerprint: true, onlyIfSuccessful: true
+                    archiveArtifacts artifacts: '**/target/scala-0.24/dependency-check-report.html', fingerprint: true, onlyIfSuccessful: true
                     //dependencyCheckPublisher pattern: 'tarjet/scala-0.24/dependency-check-report.xml'
                 }
             }
