@@ -4,7 +4,6 @@ pipeline {
         stage('Compile') {
             steps {
                 dir('dotty-example-project'){
-                    sh 'pwd'
                     sh 'sbt clean compile'
                 }
             }
@@ -21,6 +20,7 @@ pipeline {
         stage('Analysis Of Dependency Check Report') {
             steps {
                 dir('dotty-example-project/utils'){
+                    sh 'ls'
                     sh 'npm install'
                     sh 'test:starter'
                 }
