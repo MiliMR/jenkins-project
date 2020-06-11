@@ -18,7 +18,12 @@ pipeline {
                 dir('dotty-example-project'){
                     sh 'sbt dependencyCheck'
                     archiveArtifacts artifacts: '**/target/scala-0.24/dependency-check-report.xml', fingerprint: true, onlyIfSuccessful: true
-                    //dependencyCheckPublisher pattern: 'tarjet/scala-0.24/dependency-check-report.xml'
+                    dependencyCheckPublisher pattern: 'tarjet/scala-0.24/dependency-check-report.xml'
+                }
+            }
+            post{
+                unstable{
+                    echo 'Could not publish the report'
                 }
             }
         }
@@ -30,14 +35,12 @@ pipeline {
                     sh 'npm test'
                 }
             }
-        }
-    }
-    post{
-        always{
-            script {
-                if(currentBuild.result == 'FAILURE'){
-                    currentBuild.result = 'UNSTABLE'
-                    currentBuild.description = 'Vulnerabilities detected'
+            post{
+                failure{
+                    script {
+                        currentBuild.result = 'UNSTABLE'
+                        currentBuild.description = 'Vulnerabilities detected'
+                    }
                 }
             }
         }
