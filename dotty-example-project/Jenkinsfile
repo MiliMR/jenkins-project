@@ -10,15 +10,17 @@ pipeline {
             post{
                 always{
                     echo 'Compile done'
+                    sh 'ls -alh'
+                    //sh 'rm -rf **/target/scala-0.24/dependency-check-report.xml'
                 }
             }
-        }
+        }/*
         stage('Dependencies Check') {
             steps {
                 dir('dotty-example-project'){
                     sh 'sbt dependencyCheck'
-                    archiveArtifacts artifacts: '**/target/scala-0.24/dependency-check-report.xml', fingerprint: true, onlyIfSuccessful: true
-                    dependencyCheckPublisher pattern: 'tarjet/scala-0.24/dependency-check-report.xml'
+                    archiveArtifacts artifacts: '**0/target/scala-0.24/dependency-check-report.xml', fingerprint: true, onlyIfSuccessful: true
+                    dependencyCheckPublisher pattern: '**0/tarjet/scala-0.24/dependency-check-report.xml'
                 }
             }
             post{
@@ -43,6 +45,6 @@ pipeline {
                     }
                 }
             }
-        }
+        }*/
     }
 }
