@@ -10,8 +10,8 @@ pipeline {
             post{
                 always{
                     echo 'Compile done'
-                    sh 'ls -alh'
-                    //sh 'rm -rf **/target/scala-0.24/dependency-check-report.xml'
+                    sh 'ls -alh dotty-example-project/target/scala-0.24/'
+                    sh 'rm -rf dotty-example-project/target/scala-0.24/dependency-check-report.xml'
                 }
             }
         }/*
