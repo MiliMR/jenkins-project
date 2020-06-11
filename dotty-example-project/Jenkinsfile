@@ -4,8 +4,13 @@ pipeline {
         stage('Compile') {
             steps {
                 dir('dotty-example-project'){
-                    sh 'pwd'
                     sh 'sbt clean compile'
+                }
+            }
+            post{
+                always{
+                    echo 'Compile done'
+                    sh 'rm -rf dotty-example-project/target/scala-0.24/dependency-check-report.xml'
                 }
             }
         }
@@ -13,15 +18,29 @@ pipeline {
             steps {
                 dir('dotty-example-project'){
                     sh 'sbt dependencyCheck'
-                    //dependencycheck additionalArguments: '--project dotty-example-project --scan . --out build/owasp/dependency-check-report.xml --format XML --noupdate', odcInstallation: 'Dependency Checker'
-                    //sh 'ls -alh build/owasp'
-                    //dependencyCheckPublisher pattern: 'build/owasp/dependency-check-report.xml' 
-                    //dependencyCheckPublisher 'tarjet/scala-0.24/dependency-check-report.xml'
-                    dependencyCheckPublisher(
-                               // unstableTotalCritical: '0',
-                               // unstableTotalHigh: '0',
-                                pattern: 'tarjet/scala-0.24/dependency-check-report.xml'
-                   )
+                    archiveArtifacts artifacts: '**/target/scala-0.24/dependency-check-report.xml', fingerprint: true, onlyIfSuccessful: true
+                    //dependencyCheckPublisher pattern: '**/tarjet/scala-0.24/dependency-check-report.xml'
+                }
+            }
+            post{
+                unstable{
+                    echo 'Could not publish the report'
+                }
+            }
+        }
+        stage('Analysis Of Dependency Check Report') {
+            steps {
+                dir('dotty-example-project/utils'){
+                    sh 'npm install'
+                    sh 'npm test'
+                }
+            }
+            post{
+                failure{
+                    script {
+                        currentBuild.result = 'UNSTABLE'
+                        currentBuild.description = 'Vulnerabilities detected'
+                    }
                 }
             }
         }
