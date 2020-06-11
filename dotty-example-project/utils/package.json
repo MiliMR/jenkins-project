@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Starter code for jenkinsFile",
   "scripts": {
-    "test": "jest "
+    "test": "jest"
   },
   "dependencies": {
     "expect-puppeteer": "^4.3.0",
