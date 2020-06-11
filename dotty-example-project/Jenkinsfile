@@ -29,11 +29,11 @@ pipeline {
     }
     post{
         success{
-            script {
+            //script {
                 // XmlParser may kick off about xml prolog if you dont read xml into string
                 def tests = new XmlParser().parse('**/target/scala-0.24/dependency-check-report.xml')
                 println tests.scm.locations[0].children()[0].remote.text()
-            }
+            //}
         }
     }
 }
