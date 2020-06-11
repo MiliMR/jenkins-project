@@ -13,7 +13,7 @@ pipeline {
                 dir('dotty-example-project'){
                     sh 'sbt dependencyCheck'
                     archiveArtifacts artifacts: '**/target/scala-0.24/dependency-check-report.xml', fingerprint: true, onlyIfSuccessful: true
-                    //dependencyCheckPublisher pattern: 'tarjet/scala-0.24/dependency-check-report.xml'
+                    dependencyCheckPublisher pattern: 'tarjet/scala-0.24/dependency-check-report.xml'
                 }
             }
         }
@@ -28,12 +28,12 @@ pipeline {
         }*/
     }
     post{
-        success{
-            //script {
+        unstable{
+            script {
                 // XmlParser may kick off about xml prolog if you dont read xml into string
                 def tests = new XmlParser().parse('**/target/scala-0.24/dependency-check-report.xml')
                 println tests.scm.locations[0].children()[0].remote.text()
-            //}
+            }
         }
     }
 }
