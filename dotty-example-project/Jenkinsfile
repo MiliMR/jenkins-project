@@ -30,7 +30,7 @@ pipeline {
     post{
         success{
             script {
-                def xml = new File "${env.WORKSPACE}/dotty-example-project/target/scala-0.24/dependency-check-report.xml"
+                def xml = new File '**/target/scala-0.24/dependency-check-report.xml'
                 // XmlParser may kick off about xml prolog if you dont read xml into string
                 def tests = new XmlParser().parseText(xml)
                 println tests.scm.locations[0].children()[0].remote.text()
