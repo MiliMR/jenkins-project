@@ -1,5 +1,5 @@
+def didTest = false
 pipeline {
-    def didTest = false
     agent any
     stages {
         stage('Compile') {
