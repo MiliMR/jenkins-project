@@ -30,7 +30,7 @@ pipeline {
     post{
         unstable{
             script {
-                sh "xidel -se '//vulnerabilityIds/text()' '**/target/scala-0.24/dependency-check-report.xml'"
+                sh "xidel -se '//vulnerabilityIds/text()' dotty-example-project/target/scala-0.24/dependency-check-report.xml"
             }
         }
     }
