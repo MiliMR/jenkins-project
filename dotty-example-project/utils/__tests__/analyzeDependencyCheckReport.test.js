@@ -1,7 +1,9 @@
 const jsdom = require("jsdom");
 test('Search Vulnerabilities in DependencyCheckReport', async () => {
     var fs = require("fs");
-    var document = fs.readFileSync("../target/scala-0.24/dependency-check-report.xml").toString();
+    var directory = "../target/scala-0.24/dependency-check-report.xml";
+    var document = fs.readFileSync(directory).toString();
+    var vulnerabilityTag = "vulnerabilityIds";
     const dom = new jsdom.JSDOM(document);
-    console.log(dom.window.document.querySelector("vulnerabilityIds").textContent);
+    expect(dom.window.document.querySelector(vulnerabilityTag).textContent).toBeNull();
 });
