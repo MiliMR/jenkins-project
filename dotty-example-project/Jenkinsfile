@@ -37,6 +37,8 @@ pipeline {
                     sh 'printenv'
                     sh 'npm install'
                     sh 'npm test'
+                }
+                script{
                     if(currentBuild.result == 'FAILURE'){
                         currentBuild.result = 'UNSTABLE'
                     }
