@@ -37,7 +37,7 @@ pipeline {
             post{
                 failure{
                     script {
-                        currentBuild.result = 'UNSTABLE'
+                        //currentBuild.result = 'UNSTABLE'
                         currentBuild.description = "Vulnerabilities detected, <a href=\"${NGROK_URL}/job/pipeline-blue-ocean/job/${env.BRANCH_NAME}/${env.BUILD_ID}/dependency-check-findings/\">details</a>"
                     }
                 }
