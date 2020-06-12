@@ -38,7 +38,8 @@ pipeline {
             post{
                 always{
                     script {
-                        if(${VULNERABILITY_DETECTED}){
+                        echo "${VULNERABILITY_DETECTED}"
+                        if("${VULNERABILITY_DETECTED}"){
                             currentBuild.result = 'UNSTABLE'
                             currentBuild.description = "Vulnerabilities detected"
                         }
