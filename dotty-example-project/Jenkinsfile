@@ -14,7 +14,6 @@ pipeline {
             post{
                 success{
                     echo 'Compile done'
-                    sh 'rm -rf dotty-example-project/target/scala-0.24/dependency-check-report.xml'
                 }
             }
         }
@@ -35,19 +34,14 @@ pipeline {
         stage('Analysis Of Dependency Check Report') {
             steps {
                 dir("${PROJECT_PATH}/utils"){
-                    sh 'printenv'
                     sh 'npm install'
                     sh 'npm test'
                 }
-                script{
-                    if(currentBuild.result == 'FAILURE'){
-                        currentBuild.result = 'UNSTABLE'
-                    }
-                }
             }
             post{
-                unstable{
+                failure{
                     script {
+                        currentBuild.result = 'UNSTABLE'
                         currentBuild.description = 'Vulnerabilities detected'
                     }
                 }
