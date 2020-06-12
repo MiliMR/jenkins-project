@@ -11,11 +11,6 @@ pipeline {
                     sh 'sbt clean compile'
                 }
             }
-            post{
-                success{
-                    echo 'Compile done'
-                }
-            }
         }
         stage('Dependencies Check') {
             steps {
@@ -46,6 +41,11 @@ pipeline {
                     }
                 }
             }
+        }
+    }
+    post{
+        always{
+            echo "RESULT: ${currentBuild.result}"
         }
     }
 }
