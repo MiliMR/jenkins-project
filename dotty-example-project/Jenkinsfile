@@ -2,11 +2,12 @@ pipeline {
     agent any
     environment {
         REPORT_PATH = '/target/scala-0.24/dependency-check-report.xml'
+        PROJECT_PATH = 'dotty-example-project'
     }
     stages {
         stage('Compile') {
             steps {
-                dir('dotty-example-project'){
+                dir("${PROJECT_PATH}"){
                     sh 'sbt clean compile'
                 }
             }
