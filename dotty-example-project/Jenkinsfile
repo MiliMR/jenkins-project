@@ -22,7 +22,7 @@ pipeline {
                 dir('dotty-example-project'){
                     sh 'sbt dependencyCheck'
                     archiveArtifacts artifacts: "**${REPORT_PATH}", fingerprint: true, onlyIfSuccessful: true
-                    //dependencyCheckPublisher pattern: '**/tarjet/scala-0.24/dependency-check-report.xml'
+                    dependencyCheckPublisher pattern: "**${REPORT_PATH}"
                 }
             }
             post{
