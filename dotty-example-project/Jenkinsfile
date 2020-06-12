@@ -34,6 +34,7 @@ pipeline {
         stage('Analysis Of Dependency Check Report') {
             steps {
                 dir('dotty-example-project/utils'){
+                    sh 'printenv'
                     sh 'npm install'
                     sh 'npm test'
                 }
