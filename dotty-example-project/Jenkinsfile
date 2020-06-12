@@ -1,8 +1,7 @@
 pipeline {
     agent any
     environment {
-        REPORT = '/target/scala-0.24/dependency-check-report.xml'
-        REPORT_PATH = '../target/scala-0.24/dependency-check-report.xml'
+        REPORT_PATH = '/target/scala-0.24/dependency-check-report.xml'
     }
     stages {
         stage('Compile') {
