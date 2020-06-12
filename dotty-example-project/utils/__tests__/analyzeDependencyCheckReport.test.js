@@ -7,11 +7,11 @@ test('Search Vulnerabilities in DependencyCheckReport', async () => {
     //var vulnerabilityTag = "vulnerabilityIds[confidence=\"HIGHEST\"]";
     var vulnerabilityTag = "software[vulnerabilityIdMatched=\"true\"]"
     const dom = new jsdom.JSDOM(reportContent);
+    var matches = dom.window.document.querySelectorAll(vulnerabilityTag);
     try{
-        console.log(expect(dom.window.document.querySelector(vulnerabilityTag)).toBeNull());
-        expect(dom.window.document.querySelector(vulnerabilityTag)).toBeNull();
+        console.log(expect(matches.length).toBeLessThan(process.env.MAX_VULNERABILITY));
+        expect(matches.length).toBeLessThan(process.env.MAX_VULNERABILITY);
     }catch(exception){
-        process.env.VULNERABILITY_DETECTED = true;
-        console.log(exception);
+        process.env['VULNERABILITY_DETECTED'] = true;
     }
 });
