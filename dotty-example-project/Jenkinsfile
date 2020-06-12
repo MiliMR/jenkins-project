@@ -37,12 +37,14 @@ pipeline {
                     sh 'printenv'
                     sh 'npm install'
                     sh 'npm test'
+                    if(currentBuild.result == 'FAILURE'){
+                        currentBuild.result = 'UNSTABLE'
+                    }
                 }
             }
             post{
-                failure{
+                unstable{
                     script {
-                        currentBuild.result = 'UNSTABLE'
                         currentBuild.description = 'Vulnerabilities detected'
                     }
                 }
