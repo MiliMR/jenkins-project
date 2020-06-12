@@ -9,7 +9,6 @@ pipeline {
         stage('Compile') {
             steps {
                 dir("${PROJECT_PATH}"){
-                    echo "${env.BRANCH_NAME}"
                     sh 'sbt clean compile'
                 }
             }
@@ -39,7 +38,7 @@ pipeline {
                 failure{
                     script {
                         currentBuild.result = 'UNSTABLE'
-                        currentBuild.description = "Vulnerabilities detected, details \n ${NGROK_URL}/job/pipeline-blue-ocean/job/master/${env.BUILD_ID}/dependency-check-findings/"
+                        currentBuild.description = "Vulnerabilities detected, <a href=\"${NGROK_URL}/job/pipeline-blue-ocean/job/${env.BRANCH_NAME}/${env.BUILD_ID}/dependency-check-findings/\">details</a>"
                     }
                 }
             }
