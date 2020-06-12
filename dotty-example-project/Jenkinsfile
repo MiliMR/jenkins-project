@@ -3,6 +3,7 @@ pipeline {
     environment {
         REPORT_PATH = '/target/scala-0.24/dependency-check-report.xml'
         PROJECT_PATH = 'dotty-example-project'
+        VULNERABILITY_DETECTED = false
     }
     stages {
         stage('Compile') {
@@ -34,10 +35,12 @@ pipeline {
                 }
             }
             post{
-                failure{
+                always{
                     script {
-                        //currentBuild.result = 'UNSTABLE'
-                        currentBuild.description = "Vulnerabilities detected"
+                        if(${VULNERABILITY_DETECTED}){
+                            currentBuild.result = 'UNSTABLE'
+                            currentBuild.description = "Vulnerabilities detected"
+                        }
                     }
                 }
             }
