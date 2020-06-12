@@ -1,10 +1,11 @@
 const jsdom = require("jsdom");
 test('Search Vulnerabilities in DependencyCheckReport', async () => {
     var fs = require("fs");
-    var directory = ".."+process.env.REPORT_FILE;
-    var document = fs.readFileSync(directory).toString();
+    console.log(process.env.REPORT_FILE);
+    var reportPath = ".."+process.env.REPORT_FILE+"";
+    var reportContent = fs.readFileSync(reportPath).toString();
     //var vulnerabilityTag = "vulnerabilityIds[confidence=\"HIGHEST\"]";
     var vulnerabilityTag = "software[vulnerabilityIdMatched=\"true\"]"
-    const dom = new jsdom.JSDOM(document);
+    const dom = new jsdom.JSDOM(reportContent);
     expect(dom.window.document.querySelector(vulnerabilityTag)).toBeNull();
 });
