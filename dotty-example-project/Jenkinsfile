@@ -20,7 +20,7 @@ pipeline {
         }
         stage('Dependencies Check') {
             steps {
-                dir('dotty-example-project'){
+                dir("${PROJECT_PATH}"){
                     sh 'sbt dependencyCheck'
                     archiveArtifacts artifacts: "**${REPORT_PATH}", fingerprint: true, onlyIfSuccessful: true
                     dependencyCheckPublisher pattern: "**${REPORT_PATH}"
@@ -34,7 +34,7 @@ pipeline {
         }
         stage('Analysis Of Dependency Check Report') {
             steps {
-                dir('dotty-example-project/utils'){
+                dir("${PROJECT_PATH}/utils"){
                     sh 'printenv'
                     sh 'npm install'
                     sh 'npm test'
