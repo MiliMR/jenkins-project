@@ -10,8 +10,8 @@ test('Search Vulnerabilities in DependencyCheckReport', async () => {
     try{
         console.log(expect(dom.window.document.querySelector(vulnerabilityTag)).toBeNull());
         expect(dom.window.document.querySelector(vulnerabilityTag)).toBeNull();
-    }catch(Exception e){
+    }catch(exception){
         process.env.VULNERABILITY_DETECTED = true;
-        console.log(e);
+        console.log(exception);
     }
 });
