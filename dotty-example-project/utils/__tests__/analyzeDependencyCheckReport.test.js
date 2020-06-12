@@ -3,7 +3,8 @@ test('Search Vulnerabilities in DependencyCheckReport', async () => {
     var fs = require("fs");
     var directory = "../target/scala-0.24/dependency-check-report.xml";
     var document = fs.readFileSync(directory).toString();
-    var vulnerabilityTag = "vulnerabilityIds[confidence=\"HIGHEST\"]";
+    //var vulnerabilityTag = "vulnerabilityIds[confidence=\"HIGHEST\"]";
+    var vulnerabilityTag = "software[vulnerabilityIdMatched=\"true\"]"
     const dom = new jsdom.JSDOM(document);
     expect(dom.window.document.querySelector(vulnerabilityTag)).toBeNull();
 });
