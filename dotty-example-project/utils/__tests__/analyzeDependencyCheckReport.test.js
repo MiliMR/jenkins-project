@@ -1,5 +1,5 @@
 const jsdom = require("jsdom");
-require('dotenv').config()
+require('dotenv').config();
 test('Search Vulnerabilities in DependencyCheckReport', async () => {
     var fs = require("fs");
     console.log(process.env.REPORT_FILE);
