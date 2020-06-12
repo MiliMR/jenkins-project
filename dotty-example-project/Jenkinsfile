@@ -45,11 +45,5 @@ pipeline {
                 }
             }
         }
-        stage('End') {
-            steps {
-                echo "RESULT: ${currentBuild.result}"
-            }
-            
-        }
     }
 }
