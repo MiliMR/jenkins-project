@@ -1,7 +1,8 @@
 pipeline {
     agent any
     environment {
-        REPORT_PATH = '**/target/scala-0.24/dependency-check-report.xml'
+        REPORT = '/target/scala-0.24/dependency-check-report.xml'
+        REPORT_PATH = '../target/scala-0.24/dependency-check-report.xml'
     }
     stages {
         stage('Compile') {
@@ -21,7 +22,7 @@ pipeline {
             steps {
                 dir('dotty-example-project'){
                     sh 'sbt dependencyCheck'
-                    archiveArtifacts artifacts: "${REPORT_PATH}", fingerprint: true, onlyIfSuccessful: true
+                    archiveArtifacts artifacts: "**${REPORT}", fingerprint: true, onlyIfSuccessful: true
                     //dependencyCheckPublisher pattern: '**/tarjet/scala-0.24/dependency-check-report.xml'
                 }
             }
