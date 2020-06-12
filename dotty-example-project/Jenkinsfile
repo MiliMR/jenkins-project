@@ -3,7 +3,6 @@ pipeline {
     environment {
         REPORT_PATH = '/target/scala-0.24/dependency-check-report.xml'
         PROJECT_PATH = 'dotty-example-project'
-        NGROK_URL = 'https://5134ed31d62b.eu.ngrok.io'
     }
     stages {
         stage('Compile') {
@@ -38,7 +37,7 @@ pipeline {
                 failure{
                     script {
                         //currentBuild.result = 'UNSTABLE'
-                        currentBuild.description = "Vulnerabilities detected, <a href=\"${NGROK_URL}/job/pipeline-blue-ocean/job/${env.BRANCH_NAME}/${env.BUILD_ID}/dependency-check-findings/\">details</a>"
+                        currentBuild.description = "Vulnerabilities detected"
                     }
                 }
             }
