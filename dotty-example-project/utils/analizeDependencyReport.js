@@ -1,7 +1,7 @@
 const jsdom = require("jsdom");
 require('dotenv').config();
 var fs = require("fs");
-var reportPath = process.env.REPORT_PATH;
+var reportPath = process.env.REPORT_PATH_ANALYSIS;
 try{
     var reportContent = fs.readFileSync(reportPath).toString();
     var vulnerabilityTag = "software[vulnerabilityIdMatched=\"true\"]";
@@ -14,4 +14,4 @@ try{
     console.log("Invalid path : "+process.env.REPORT_PATH)
 }
 
-console.log("Test Suites: 1 passed")
+console.log("Test Suites: 1 passed") 
