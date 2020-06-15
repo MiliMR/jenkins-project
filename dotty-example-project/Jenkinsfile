@@ -34,7 +34,7 @@ pipeline {
                         def returnValue = sh(
                             returnStatus: true,
                             script: '''
-                                node analizeDependencyReport.js
+                                npm test
                             '''
                         )
                         if(returnValue != 0) {
