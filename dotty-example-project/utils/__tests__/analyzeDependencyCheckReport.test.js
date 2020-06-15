@@ -11,7 +11,7 @@ test('Search Vulnerabilities in DependencyCheckReport', async () => {
     //expect(Number(matches.length)).toBeLessThan(Number(process.env.MAX_VULNERABILITY));
     
     if(Number(matches.length) > Number(process.env.MAX_VULNERABILITY)){
-        process.env['VULNERABILITY_DETECTED'] = "true";
+        process.env.VULNERABILITY_DETECTED = "true";
     }
     
 });
