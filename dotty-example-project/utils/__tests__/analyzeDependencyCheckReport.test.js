@@ -8,10 +8,6 @@ test('Search Vulnerabilities in DependencyCheckReport', async () => {
     var vulnerabilityTag = "software[vulnerabilityIdMatched=\"true\"]";
     const dom = new jsdom.JSDOM(reportContent);
     var matches = dom.window.document.querySelectorAll(vulnerabilityTag);
-    //expect(Number(matches.length)).toBeLessThan(Number(process.env.MAX_VULNERABILITY));
-    
-    if(Number(matches.length) > Number(process.env.MAX_VULNERABILITY)){
-        process.env.VULNERABILITY_DETECTED = "true";
-    }
-    
+    expect(Number(matches.length)).toBeLessThan(Number(process.env.MAX_VULNERABILITY));
+   
 });
