@@ -9,7 +9,11 @@ try{
     var matches = dom.window.document.querySelectorAll(vulnerabilityTag);
     console.log(matches.length + " " + process.env.MAX_VULNERABILITY);
     if(Number(matches.length) > Number(process.env.MAX_VULNERABILITY)){
-       throw new Error(" Expected: < "+ process.env.MAX_VULNERABILITY + "\n Received:   " + matches.length);
+        try{
+            throw new Error(" Expected: < "+ process.env.MAX_VULNERABILITY + "\n Received:   " + matches.length);
+        }catch(e){
+            console.log(e.message);
+        }
     }else{
         console.log("Test Suites: 1 passed") 
     }
