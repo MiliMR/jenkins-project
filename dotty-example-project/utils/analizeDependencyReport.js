@@ -13,5 +13,5 @@ try{
         console.log("Test Suites: 1 passed") 
     }
 }catch(exception){
-    console.log("Invalid path : "+process.env.REPORT_PATH)
+    console.log("Invalid path : "+process.env.REPORT_PATH_ANALYSIS)
 }
