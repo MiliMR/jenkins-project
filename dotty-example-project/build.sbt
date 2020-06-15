@@ -6,7 +6,7 @@ lazy val root = project
     version := "0.1.0",
     scalaVersion := "0.24.0-RC1",
     dependencyCheckFormat := "XML"
-  )/*
+  )
   libraryDependencies ++= Seq(
     "org.postgresql" % "postgresql" % "9.4-1206-jdbc42"
-  )*/
+  )
