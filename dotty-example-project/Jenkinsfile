@@ -37,6 +37,9 @@ pipeline {
             }
             
             post{
+                always{
+                    echo "${VULNERABILITY_DETECTED}"
+                }
                 failure{
                     script {
                         currentBuild.result = 'UNSTABLE'
