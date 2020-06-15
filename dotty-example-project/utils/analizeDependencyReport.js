@@ -7,11 +7,8 @@ var reportContent = fs.readFileSync(reportPath).toString();
 const dom = new jsdom.JSDOM(reportContent);
 var matches = dom.window.document.querySelectorAll(vulnerabilityTag);
 if(Number(matches.length) > Number(process.env.MAX_VULNERABILITY)){
-    try{
-        throw new Error(" Expected: < "+ process.env.MAX_VULNERABILITY + "\n Received:   " + matches.length);
-    }catch(e){
-        console.log(e.message);
-    }
+    console.log(" Expected: < "+ process.env.MAX_VULNERABILITY + "\n Received:   " + matches.length);
+    throw new Error();
 }else{
     console.log("Test Suites: 1 passed");
 }
