@@ -7,6 +7,7 @@ try{
     var vulnerabilityTag = "software[vulnerabilityIdMatched=\"true\"]";
     const dom = new jsdom.JSDOM(reportContent);
     var matches = dom.window.document.querySelectorAll(vulnerabilityTag);
+    console.log(matches.length + " " + process.env.MAX_VULNERABILITY);
     if(Number(matches.length) > Number(process.env.MAX_VULNERABILITY)){
        throw new Error(" Expected: < "+ process.env.MAX_VULNERABILITY + "\n Received:   " + matches.length);
     }else{
