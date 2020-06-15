@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Starter code for jenkinsFile",
   "scripts": {
-    "test": "node analizeDependencyCheckReport.js"
+    "test": "node analizeDependencyReport.js"
   },
   "dependencies": {
     "dotenv": "^8.2.0"
