@@ -30,6 +30,7 @@ pipeline {
         stage('Analysis Of Dependency Check Report') {
             steps {
                 dir("${PROJECT_PATH}/utils"){
+                    sh 'npm install'
                     script{
                         def returnValue = sh(
                             returnStatus: true,
