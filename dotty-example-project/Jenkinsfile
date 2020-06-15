@@ -3,7 +3,7 @@ pipeline {
     environment {
         REPORT_PATH = '/target/scala-0.24/dependency-check-report.xml'
         PROJECT_PATH = 'dotty-example-project'
-        VULNERABILITY_DETECTED = false
+        //VULNERABILITY_DETECTED = false
         MAX_VULNERABILITY = 1
     }
     stages {
@@ -32,10 +32,21 @@ pipeline {
             steps {
                 dir("${PROJECT_PATH}/utils"){
                     sh 'npm install'
-                    sh 'npm test'
+                    script{
+                        def returnVal = sh(
+                            returnStatus: true,
+                            script: '''
+                                npm test
+                            '''
+                        )
+                        if(returnVal != 0) {
+                            currentBuild.result = 'UNSTABLE'
+                            currentBuild.description = "Vulnerabilities detected";
+                       }
+                    }
                 }
             }
-            
+            /*
             post{
                 always{
                     echo "${VULNERABILITY_DETECTED}"
@@ -43,10 +54,10 @@ pipeline {
                 failure{
                     script {
                         currentBuild.result = 'UNSTABLE'
-                        currentBuild.description = "Vulnerabilities detected";
+                        
                     }
                 }
-            }
+            }*/
         }
     }
 }
