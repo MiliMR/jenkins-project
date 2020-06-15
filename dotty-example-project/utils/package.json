@@ -1,0 +1,11 @@
+{
+  "name": "startNpm",
+  "version": "1.0.0",
+  "description": "Starter code for jenkinsFile",
+  "scripts": {
+    "test": "node analizeDependencyCheckReport.js"
+  },
+  "dependencies": {
+    "dotenv": "^8.2.0"
+  }
+}
