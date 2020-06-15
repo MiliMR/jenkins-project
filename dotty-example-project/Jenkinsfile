@@ -3,7 +3,7 @@ pipeline {
     environment {
         REPORT_PATH = '/target/scala-0.24/dependency-check-report.xml'
         PROJECT_PATH = 'dotty-example-project'
-        //VULNERABILITY_DETECTED = false
+        VULNERABILITY_DETECTED = false
         MAX_VULNERABILITY = 1
     }
     stages {
