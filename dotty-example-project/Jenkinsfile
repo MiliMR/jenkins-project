@@ -30,12 +30,12 @@ pipeline {
         stage('Analysis Of Dependency Check Report') {
             steps {
                 dir("${PROJECT_PATH}/utils"){
-                    sh 'npm install'
+                    //sh 'npm install'
                     script{
                         def returnValue = sh(
                             returnStatus: true,
                             script: '''
-                                npm test
+                                node analizeDependencyCheckReport.js
                             '''
                         )
                         if(returnValue != 0) {
