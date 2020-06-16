@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         PROJECT_PATH = "dotty-example-project"
-        REPORT_PATH = "${env.WORKSPACE}/${PROJECT_PATH}/target/scala-0.24/**.xml"
+        REPORT_PATH = "**/target/scala-0.24/dependency-check-report.xml"
     }
     stages {
         stage('Compile') {
@@ -16,11 +16,12 @@ pipeline {
             steps {
                 dir("${PROJECT_PATH}"){
                     sh 'sbt dependencyCheck'
+                    dependencyCheckPublisher pattern: "${REPORT_PATH}"
                 }
             }
             post{
-                always{
-                    dependencyCheckPublisher pattern: "${REPORT_PATH}"
+                unstable{
+                    echo 'Could not publish the report'
                 }
             }
         }
