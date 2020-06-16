@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         PROJECT_PATH = "dotty-example-project"
-        REPORT_PATH = "${env.WORKSPACE}/${PROJECT_PATH}/target/scala-0.24/dependency-check-report.xml"
+        REPORT_PATH = "${env.WORKSPACE}/${PROJECT_PATH}/target/scala-0.24/**.xml"
     }
     stages {
         stage('Compile') {
