@@ -16,13 +16,11 @@ pipeline {
             steps {
                 dir("${PROJECT_PATH}"){
                     sh 'sbt dependencyCheck'
-                    //archiveArtifacts artifacts: "${REPORT_PATH}", fingerprint: true, onlyIfSuccessful: true
-                    dependencyCheckPublisher pattern: "${REPORT_PATH}"
                 }
             }
             post{
-                unstable{
-                    echo 'Could not publish the report'
+                always{
+                    dependencyCheckPublisher pattern: "${REPORT_PATH}"
                 }
             }
         }
