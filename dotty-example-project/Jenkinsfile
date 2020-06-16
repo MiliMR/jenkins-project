@@ -1,10 +1,9 @@
 pipeline {
     agent any
     environment {
-        REPORT_PATH_JENKINS = '**/target/scala-0.24/dependency-check-report.xml'
-        REPORT_PATH_ANALYSIS = '../target/scala-0.24/dependency-check-report.xml'
         PROJECT_PATH = 'dotty-example-project'
-        MAX_VULNERABILITY = 1
+        REPORT_PATH = "${env.WORKSPACE}/${PROJECT_PATH}/target/scala-0.24/dependency-check-report.xml"
+        //REPORT_PATH_ANALYSIS = '../target/scala-0.24/dependency-check-report.xml'
     }
     stages {
         stage('Compile') {
@@ -18,8 +17,8 @@ pipeline {
             steps {
                 dir("${PROJECT_PATH}"){
                     sh 'sbt dependencyCheck'
-                    archiveArtifacts artifacts: "${REPORT_PATH_JENKINS}", fingerprint: true, onlyIfSuccessful: true
-                    dependencyCheckPublisher pattern: "${REPORT_PATH_JENKINS}"
+                    archiveArtifacts artifacts: "${REPORT_PATH}", fingerprint: true, onlyIfSuccessful: true
+                    dependencyCheckPublisher pattern: "${REPORT_PATH}"
                 }
             }
             post{
