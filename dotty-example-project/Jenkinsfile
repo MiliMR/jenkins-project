@@ -3,7 +3,7 @@ pipeline {
     environment {
         PROJECT_PATH = "dotty-example-project"
         REPORT_PATH_J = "**/target/scala**/dependency-check-report.xml"
-        REPORT_PATH = "../target/[^\\]*?/dependency-check-report.xml"
+        REPORT_PATH = "../target/scala*/dependency-check-report.xml"
     }
     stages {
         stage('Compile') {
