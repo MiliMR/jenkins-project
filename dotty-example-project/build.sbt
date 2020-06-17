@@ -9,8 +9,6 @@ lazy val root = project
     dependencyCheckOutputDirectory := Some(file("./reports"))
   )
 
-/*
   libraryDependencies ++= Seq(
     "org.postgresql" % "postgresql" % "9.4-1206-jdbc42"
   )
-*/
