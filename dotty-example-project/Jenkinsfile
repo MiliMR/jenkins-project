@@ -1,10 +1,8 @@
 pipeline {
     agent any
     environment {
-        PROJECT_PATH = "dotty-example-project"
-        SCALA_VERSION = "0.24"
-        REPORT_PATH_J = "**/target/scala**/dependency-check-report.xml"
-        REPORT_PATH = "${env.WORKSPACE}/${PROJECT_PATH}/target/scala-${SCALA_VERSION}/dependency-check-report.xml"
+        PROJECT_PATH = 'dotty-example-project'
+        REPORT_PATH = "${env.WORKSPACE}/${PROJECT_PATH}/reports/dependency-check-report.xml"
     }
     stages {
         stage('Compile') {
@@ -18,7 +16,7 @@ pipeline {
             steps {
                 dir("${PROJECT_PATH}"){
                     sh 'sbt dependencyCheck'
-                    dependencyCheckPublisher pattern: "${REPORT_PATH_J}"
+                    dependencyCheckPublisher pattern: "/reports/dependency-check-report.xml"
                 }
             }
             post{
