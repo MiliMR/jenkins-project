@@ -37,6 +37,7 @@ pipeline {
                                 npm run analyze
                             '''
                         )
+                        echo "${returnedValue}"
                         if(returnedValue.contains("Vulnerabilities Found")) {
                             currentBuild.result = 'UNSTABLE';
                             currentBuild.description = "Vulnerabilities detected";
@@ -48,8 +49,7 @@ pipeline {
     }
     post{
         always {
-            echo 'One way or another, I have finished'
-            deleteDir() /* clean up our workspace */
+            deleteDir()
         }
     }
 }
