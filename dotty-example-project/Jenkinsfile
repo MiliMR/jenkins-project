@@ -30,16 +30,18 @@ pipeline {
                 dir("${PROJECT_PATH}/utils"){
                     sh 'npm install'
                     script{
-                        def returnValue = sh(
+                        def returnedValue = sh(
                             returnStatus: true,
+                            returnStdout: true.
                             script: '''
                                 npm test
                             '''
                         )
-                        if(returnValue != 0) {
+                        echo returnedValue
+                        /*if(returnedValue != 0) {
                             currentBuild.result = 'UNSTABLE';
                             currentBuild.description = "Vulnerabilities detected";
-                       }
+                       }*/
                     }
                 }
             }
