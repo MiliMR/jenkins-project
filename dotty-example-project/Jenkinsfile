@@ -23,6 +23,9 @@ pipeline {
                 unstable{
                     echo 'Could not publish the report'
                 }
+                always{
+                    archiveArtifacts artifacts: "reports/**.html", fingerprint: true
+                }
             }
         }
         stage('Analysis Of Dependency Check Report') {
@@ -43,6 +46,12 @@ pipeline {
                     }
                 }
             }
+        }
+    }
+    post{
+        always {
+            echo 'One way or another, I have finished'
+            deleteDir() /* clean up our workspace */
         }
     }
 }
