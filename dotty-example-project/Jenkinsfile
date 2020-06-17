@@ -33,7 +33,7 @@ pipeline {
                         def returnedValue = sh(
                             returnStdout: true,
                             script: '''
-                                npm test
+                                npm run analyze
                             '''
                         ).trim()
                         if(returnedValue.contains('Vulnerabilities Found')) {
