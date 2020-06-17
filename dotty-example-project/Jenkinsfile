@@ -16,7 +16,7 @@ pipeline {
             steps {
                 dir("${PROJECT_PATH}"){
                     sh 'sbt dependencyCheck'
-                    dependencyCheckPublisher pattern: "/reports/dependency-check-report.xml"
+                    dependencyCheckPublisher pattern: "*/reports/dependency-check-report.xml"
                 }
             }
             post{
