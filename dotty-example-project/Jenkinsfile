@@ -32,7 +32,7 @@ pipeline {
                     script{
                         def returnedValue = sh(
                             returnStatus: true,
-                            returnStdout: true.
+                            returnStdout: true,
                             script: '''
                                 npm test
                             '''
