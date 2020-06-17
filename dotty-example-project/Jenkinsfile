@@ -37,7 +37,7 @@ pipeline {
                             '''
                         ).trim()
                         echo "${returnedValue}"
-                        if(returnedValue.contanins('Vulnerabilities Found')) {
+                        if(returnedValue.contains('Vulnerabilities Found')) {
                             currentBuild.result = 'UNSTABLE';
                             currentBuild.description = "Vulnerabilities detected";
                        }
