@@ -35,7 +35,7 @@ pipeline {
                             script: '''
                                 npm run analyze
                             '''
-                        ).trim()
+                        )
                         if(returnedValue.contains('Vulnerabilities Found')) {
                             currentBuild.result = 'UNSTABLE';
                             currentBuild.description = "Vulnerabilities detected";
