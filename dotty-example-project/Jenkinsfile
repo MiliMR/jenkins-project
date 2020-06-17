@@ -31,7 +31,6 @@ pipeline {
                     sh 'npm install'
                     script{
                         def returnedValue = sh(
-                            returnStatus: true,
                             returnStdout: true,
                             script: '''
                                 npm test
