@@ -36,7 +36,7 @@ pipeline {
                                 npm test
                             '''
                         ).trim()
-                        echo ${returnedValue}
+                        echo "${returnedValue}"
                         if(returnedValue == 'Vulnerabilities Found') {
                             currentBuild.result = 'UNSTABLE';
                             currentBuild.description = "Vulnerabilities detected";
