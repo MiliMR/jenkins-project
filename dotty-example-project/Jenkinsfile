@@ -6,6 +6,7 @@ pipeline {
         REPORT_PATH_PROJECT = "${env.WORKSPACE}/${PROJECT_NAME}/reports/${PROJECT_NAME}/dependency-check-report.xml"
         REPORT_PATH_SUB_PROJECT = "${env.WORKSPACE}/${PROJECT_NAME}/reports/${SUB_PROJECT_NAME}/dependency-check-report.xml"
     }
+    
     stages {
         stage('Compile') {
             parallel {
