@@ -1,23 +1,34 @@
 pipeline { 
     agent any
     environment {
-        PROJECT_PATH = 'dotty-example-project'
-        REPORT_PATH = "${env.WORKSPACE}/${PROJECT_PATH}/reports/dependency-check-report.xml"
+        PROJECT_NAME = 'dotty-example-project'
+        SUB_PROJECT_NAME = 'maven-simple'
+        REPORT_PATH_PROJECT = "${env.WORKSPACE}/${PROJECT_NAME}/reports/${PROJECT_NAME}/dependency-check-report.xml"
+        REPORT_PATH_SUB_PROJECT = "${env.WORKSPACE}/${PROJECT_NAME}/reports/${SUB_PROJECT_NAME}/dependency-check-report.xml"
     }
     stages {
         stage('Compile') {
             steps {
-                dir("${PROJECT_PATH}"){
+                dir("${PROJECT_NAME}"){
                     sh 'sbt clean compile'
                 }
+                dir("${PROJECT_NAME}/${SUB_PROJECT_NAME}"){
+                    sh 'mvn clean install -DskipTests=true'
+                }
+
             }
         }
         stage('Dependencies Check') {
             steps {
-                dir("${PROJECT_PATH}"){
+                dir("${PROJECT_NAME}"){
                     sh 'sbt dependencyCheck'
-                    archiveArtifacts artifacts: "reports/**.html"
-                    dependencyCheckPublisher pattern: "reports/**.xml"
+                    archiveArtifacts artifacts: "reports/${PROJECT_NAME}/**.html"
+                    dependencyCheckPublisher pattern: "reports/${PROJECT_NAME}/**.xml"
+                }
+                dir("${PROJECT_NAME}/${SUB_PROJECT_NAME}"){
+                    sh 'mvn dependency-check:check -Dformats=XML,HTML -Pintegration-tests'
+                    archiveArtifacts artifacts: "reports/${SUB_PROJECT_NAME}/**.html"
+                    dependencyCheckPublisher pattern: "reports/${SUB_PROJECT_NAME}/**.xml"
                 }
             }
             post{
@@ -28,7 +39,7 @@ pipeline {
         }
         stage('Analysis Of Dependency Check Report') {
             steps {
-                dir("${PROJECT_PATH}/utils"){
+                dir("${PROJECT_NAME}/utils"){
                     sh 'npm install'
                     script{
                         def returnedValue = sh(
@@ -37,11 +48,14 @@ pipeline {
                                 npm run analyze
                             '''
                         )
-                        echo "${returnedValue}"
-                        if(returnedValue.contains("Vulnerabilities Found")) {
+                        if(returnedValue.contains("Vulnerabilities Found ${PROJECT_NAME}")) {
                             currentBuild.result = 'UNSTABLE';
-                            currentBuild.description = "Vulnerabilities detected";
-                       }
+                            currentBuild.description = "Vulnerabilities detected in ${PROJECT_NAME}";
+                        }
+                        else if(returnedValue.contains("Vulnerabilities Found ${SUB_PROJECT_NAME}")) {
+                            currentBuild.result = 'UNSTABLE';
+                            currentBuild.description = "Vulnerabilities detected in ${SUB_PROJECT_NAME}";
+                        }
                     }
                 }
             }
