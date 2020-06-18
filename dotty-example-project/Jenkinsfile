@@ -9,14 +9,14 @@ pipeline {
     stages {
         stage('Compile') {
             parallel {
-                stage("Compile ${PROJECT_NAME}") {
+                stage('Compile sbt') {
                     steps {
                         dir("${PROJECT_NAME}"){
                             sh 'sbt clean compile'
                         }
                     }
                 }
-                stage("Compile ${SUB_PROJECT_NAME}") {
+                stage('Compile mvn') {
                     steps {
                         dir("${PROJECT_NAME}/${SUB_PROJECT_NAME}"){
                             sh 'mvn clean install'
@@ -27,7 +27,7 @@ pipeline {
         }
         stage('Dependencies Check') {
             parallel {
-                stage('Dependencies Check') {
+                stage('Dependencies Check sbt') {
                     steps {
                         dir("${PROJECT_NAME}"){
                             sh 'sbt dependencyCheck'
@@ -41,7 +41,7 @@ pipeline {
                         }
                     }
                 }
-                stage('Dependencies Check') {
+                stage('Dependencies Check mvn') {
                     steps {
                         dir("${PROJECT_NAME}/${SUB_PROJECT_NAME}"){
                             sh 'mvn dependency-check:check -Dformats=XML,HTML -Pintegration-tests'
