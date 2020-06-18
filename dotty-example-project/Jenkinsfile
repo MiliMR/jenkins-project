@@ -39,7 +39,7 @@ pipeline {
                     sh 'sbt dependencyCheck'
                     sh "mv reports/${PROJECT_NAME}/dependency-check-report.html reports/${PROJECT_NAME}/dependency-check-report-sbt.html"
                     archiveArtifacts artifacts: "reports/${PROJECT_NAME}/**.html"
-                    dependencyCheckPublisher pattern: "reports/${PROJECT_NAME}/**.xml"
+                    dependencyCheckPublisher pattern: "reports/${PROJECT_NAME}/**.xml", newThresholdAnalysisExploitable:true
                 }
             }
             post{
