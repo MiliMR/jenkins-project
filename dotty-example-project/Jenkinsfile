@@ -13,7 +13,7 @@ pipeline {
                     sh 'sbt clean compile'
                 }
                 dir("${PROJECT_NAME}/${SUB_PROJECT_NAME}"){
-                    sh 'mvn clean install -DskipTests=true'
+                    sh 'mvn clean install'
                 }
 
             }
