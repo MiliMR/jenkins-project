@@ -8,32 +8,52 @@ pipeline {
     }
     stages {
         stage('Compile') {
-            steps {
-                dir("${PROJECT_NAME}"){
-                    sh 'sbt clean compile'
+            parallel {
+                stage("Compile ${PROJECT_NAME}") {
+                    steps {
+                        dir("${PROJECT_NAME}"){
+                            sh 'sbt clean compile'
+                        }
+                    }
                 }
-                dir("${PROJECT_NAME}/${SUB_PROJECT_NAME}"){
-                    sh 'mvn clean install'
+                stage("Compile ${SUB_PROJECT_NAME}") {
+                    steps {
+                        dir("${PROJECT_NAME}/${SUB_PROJECT_NAME}"){
+                            sh 'mvn clean install'
+                        }
+                    }
                 }
-
             }
         }
         stage('Dependencies Check') {
-            steps {
-                dir("${PROJECT_NAME}"){
-                    sh 'sbt dependencyCheck'
-                    archiveArtifacts artifacts: "reports/${PROJECT_NAME}/**.html"
-                    dependencyCheckPublisher pattern: "reports/${PROJECT_NAME}/**.xml"
+            parallel {
+                stage('Dependencies Check') {
+                    steps {
+                        dir("${PROJECT_NAME}"){
+                            sh 'sbt dependencyCheck'
+                            archiveArtifacts artifacts: "reports/${PROJECT_NAME}/**.html"
+                            dependencyCheckPublisher pattern: "reports/${PROJECT_NAME}/**.xml"
+                        }
+                    }
+                    post{
+                        unstable{
+                            echo 'Could not publish the report'
+                        }
+                    }
                 }
-                dir("${PROJECT_NAME}/${SUB_PROJECT_NAME}"){
-                    sh 'mvn dependency-check:check -Dformats=XML,HTML -Pintegration-tests'
-                    //archiveArtifacts artifacts: "reports/${SUB_PROJECT_NAME}/**.html"
-                    dependencyCheckPublisher pattern: "reports/${SUB_PROJECT_NAME}/**.xml"
-                }
-            }
-            post{
-                unstable{
-                    echo 'Could not publish the report'
+                stage('Dependencies Check') {
+                    steps {
+                        dir("${PROJECT_NAME}/${SUB_PROJECT_NAME}"){
+                            sh 'mvn dependency-check:check -Dformats=XML,HTML -Pintegration-tests'
+                            //archiveArtifacts artifacts: "reports/${SUB_PROJECT_NAME}/**.html"
+                            dependencyCheckPublisher pattern: "reports/${SUB_PROJECT_NAME}/**.xml"
+                        }
+                    }
+                    post{
+                        unstable{
+                            echo 'Could not publish the report'
+                        }
+                    }
                 }
             }
         }
@@ -48,13 +68,9 @@ pipeline {
                                 npm run analyze
                             '''
                         )
-                        if(returnedValue.contains("Vulnerabilities Found ${PROJECT_NAME}")) {
+                        if(returnedValue.contains("Vulnerabilities Found")) {
                             currentBuild.result = 'UNSTABLE';
-                            currentBuild.description = "Vulnerabilities detected in ${PROJECT_NAME}";
-                        }
-                        else if(returnedValue.contains("Vulnerabilities Found ${SUB_PROJECT_NAME}")) {
-                            currentBuild.result = 'UNSTABLE';
-                            currentBuild.description = "Vulnerabilities detected in ${SUB_PROJECT_NAME}";
+                            currentBuild.description = 'Vulnerabilities detected';
                         }
                     }
                 }
