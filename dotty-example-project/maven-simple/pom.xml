@@ -17,7 +17,12 @@
       <version>4.12</version>
       <scope>test</scope>
     </dependency>
-  
+    <!-- https://mvnrepository.com/artifact/com.typesafe.play/play-ws-standalone-json -->
+    <dependency>
+        <groupId>com.typesafe.play</groupId>
+        <artifactId>play-ws-standalone-json_2.13</artifactId>
+        <version>2.1.2</version>
+    </dependency>
 
 
   </dependencies>
