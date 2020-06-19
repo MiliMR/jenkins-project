@@ -7,7 +7,7 @@ pipeline {
         stage('Dependencies Check') {
             steps {
                 dir("${PROJECT_NAME}"){
-                    dependencyCheckPublisher pattern: "reports/**/*.xml"
+                    dependencyCheckPublisher pattern: "reports/**/**.xml"
                 }
             }
         }
