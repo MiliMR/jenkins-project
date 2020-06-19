@@ -11,7 +11,9 @@ pipeline {
             steps{
                 dependencyCheckPublisher pattern: "reports/**/**.xml"
             }
-        }/*
+        }
+    }
+}/*
         stage('Compile') {
             parallel {
                 stage('Compile sbt') {
@@ -70,11 +72,11 @@ pipeline {
                     }
                 }
             }
-        }*/
-    }
+        }
+    }*/
     /*post{
         always {
             deleteDir()
         }
     }*/
-}
+//}
