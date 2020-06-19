@@ -34,7 +34,7 @@ pipeline {
                             sh 'sbt dependencyCheck'
                             sh "mv reports/${PROJECT_NAME}/dependency-check-report.html reports/${PROJECT_NAME}/dependency-check-report-sbt.html"
                             archiveArtifacts artifacts: "reports/${PROJECT_NAME}/**.html"
-                            dependencyCheckPublisher pattern: "reports/${PROJECT_NAME}/**.xml", newThresholdAnalysisExploitable:true
+                            dependencyCheckPublisher pattern: "reports/${PROJECT_NAME}/**.xml"
                         }
                     }
                     post{
@@ -51,7 +51,7 @@ pipeline {
                         dir("${PROJECT_NAME}"){
                             sh "mv reports/${SUB_PROJECT_NAME}/dependency-check-report.html reports/${SUB_PROJECT_NAME}/dependency-check-report-mvn.html"
                             archiveArtifacts artifacts: "reports/${SUB_PROJECT_NAME}/**.html"
-                            dependencyCheckPublisher pattern: "reports/${SUB_PROJECT_NAME}/**.xml", totalThresholdAnalysisExploitable:true
+                            dependencyCheckPublisher pattern: "reports/${SUB_PROJECT_NAME}/**.xml"
                         }
                     }
                     post{
