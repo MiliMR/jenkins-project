@@ -2,81 +2,15 @@ pipeline {
     agent any
     environment {
         PROJECT_NAME = 'dotty-example-project'
-        SUB_PROJECT_NAME = 'maven-simple'
-        REPORT_PATH_PROJECT = "${env.WORKSPACE}/${PROJECT_NAME}/reports/${PROJECT_NAME}/dependency-check-report.xml"
-        REPORT_PATH_SUB_PROJECT = "${env.WORKSPACE}/${PROJECT_NAME}/reports/${SUB_PROJECT_NAME}/dependency-check-report.xml"
+        
     }
     stages {
-        stage('dependency'){
-            steps{
-                dependencyCheckPublisher pattern: "reports/**/**.xml"
+        stage('Dependencies Check') {
+            steps {
+                dir("${PROJECT_NAME}"){
+                    dependencyCheckPublisher pattern: "reports/**/*.xml"
+                }
             }
         }
     }
-}/*
-        stage('Compile') {
-            parallel {
-                stage('Compile sbt') {
-                    steps {
-                        dir("${PROJECT_NAME}"){
-                            sh 'sbt clean compile'
-                        }
-                    }
-                }
-                stage('Compile mvn') {
-                    steps {
-                        dir("${PROJECT_NAME}/${SUB_PROJECT_NAME}"){
-                            sh 'mvn clean install'
-                        }
-                    }
-                }
-            }
-        }
-        stage('Dependencies Check') {
-            steps {
-                dir("${PROJECT_NAME}/${SUB_PROJECT_NAME}"){
-                    sh 'mvn dependency-check:check -Dformats=XML,HTML -Pintegration-tests'   
-                }
-                dir("${PROJECT_NAME}"){
-                    sh "mv reports/${SUB_PROJECT_NAME}/dependency-check-report.html reports/${SUB_PROJECT_NAME}/dependency-check-report-mvn.html"
-                    archiveArtifacts artifacts: "reports/${SUB_PROJECT_NAME}/**.html"
-                    //dependencyCheckPublisher pattern: "reports/${SUB_PROJECT_NAME}/**.xml"
-                    
-                    sh 'sbt dependencyCheck'
-                    sh "mv reports/${PROJECT_NAME}/dependency-check-report.html reports/${PROJECT_NAME}/dependency-check-report-sbt.html"
-                    archiveArtifacts artifacts: "reports/${PROJECT_NAME}/**.html"
-                    dependencyCheckPublisher pattern: "reports/*/*/**.xml"
-                }
-            }
-            post{
-                unstable{
-                    echo 'Could not publish the report'
-                }
-            }
-        }
-        stage('Analysis Of Dependency Check Report') {
-            steps {
-                dir("${PROJECT_NAME}/utils"){
-                    sh 'npm install'
-                    script{
-                        def returnedValue = sh(
-                            returnStdout: true,
-                            script: '''
-                                npm run analyze
-                            '''
-                        )
-                        if(returnedValue.contains("Vulnerabilities Found")) {
-                            currentBuild.result = 'UNSTABLE';
-                            currentBuild.description = 'Vulnerabilities detected';
-                        }
-                    }
-                }
-            }
-        }
-    }*/
-    /*post{
-        always {
-            deleteDir()
-        }
-    }*/
-//}
+}
