@@ -8,8 +8,7 @@ lazy val root = project
     dependencyCheckFormats := Seq("XML","HTML"),
     dependencyCheckOutputDirectory := Some(file("./reports/dotty-example-project"))
   )
-/*
+
   libraryDependencies ++= Seq(
     "org.postgresql" % "postgresql" % "9.4-1206-jdbc42"
   )
-*/
