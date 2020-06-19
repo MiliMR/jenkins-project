@@ -26,60 +26,26 @@ pipeline {
             }
         }
         stage('Dependencies Check') {
-            parallel {
-                stage('Dependencies Check sbt') {
-                    steps {
-                        dir("${PROJECT_NAME}"){
-                            sh 'sbt dependencyCheck'
-                            sh "mv reports/${PROJECT_NAME}/dependency-check-report.html reports/${PROJECT_NAME}/dependency-check-report-sbt.html"
-                            archiveArtifacts artifacts: "reports/${PROJECT_NAME}/**.html"
-                            dependencyCheckPublisher pattern: "reports/${PROJECT_NAME}/**.xml"
-                        }
-                    }
-                    post{
-                        unstable{
-                            echo 'Could not publish the report'
-                        }
-                    }
-                }
-                stage('Dependencies Check mvn') {
-                    steps {
-                        dir("${PROJECT_NAME}/${SUB_PROJECT_NAME}"){
-                            sh 'mvn dependency-check:check -Dformats=XML,HTML -Pintegration-tests'   
-                        }
-                        dir("${PROJECT_NAME}"){
-                            sh "mv reports/${SUB_PROJECT_NAME}/dependency-check-report.html reports/${SUB_PROJECT_NAME}/dependency-check-report-mvn.html"
-                            archiveArtifacts artifacts: "reports/${SUB_PROJECT_NAME}/**.html"
-                            dependencyCheckPublisher pattern: "reports/${SUB_PROJECT_NAME}/**.xml"
-                        }
-                    }
-                    post{
-                        unstable{
-                            echo 'Could not publish the report'
-                        }
-                    }
-                }
-            }
-            /*steps {
+            steps {
                 dir("${PROJECT_NAME}/${SUB_PROJECT_NAME}"){
                     sh 'mvn dependency-check:check -Dformats=XML,HTML -Pintegration-tests'   
                 }
                 dir("${PROJECT_NAME}"){
                     sh "mv reports/${SUB_PROJECT_NAME}/dependency-check-report.html reports/${SUB_PROJECT_NAME}/dependency-check-report-mvn.html"
                     archiveArtifacts artifacts: "reports/${SUB_PROJECT_NAME}/**.html"
-                    dependencyCheckPublisher pattern: "reports/${SUB_PROJECT_NAME}/**.xml"
+                    //dependencyCheckPublisher pattern: "reports/${SUB_PROJECT_NAME}/**.xml"
                     
                     sh 'sbt dependencyCheck'
                     sh "mv reports/${PROJECT_NAME}/dependency-check-report.html reports/${PROJECT_NAME}/dependency-check-report-sbt.html"
                     archiveArtifacts artifacts: "reports/${PROJECT_NAME}/**.html"
-                    dependencyCheckPublisher pattern: "reports/${PROJECT_NAME}/**.xml", newThresholdAnalysisExploitable:true
+                    dependencyCheckPublisher pattern: "reports/**/**.xml"
                 }
             }
             post{
                 unstable{
                     echo 'Could not publish the report'
                 }
-            }*/
+            }
         }
         stage('Analysis Of Dependency Check Report') {
             steps {
