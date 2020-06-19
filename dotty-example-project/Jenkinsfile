@@ -2,7 +2,6 @@ pipeline {
     agent any
     environment {
         PROJECT_NAME = 'dotty-example-project'
-        
     }
     stages {
         stage('Dependencies Check') {
