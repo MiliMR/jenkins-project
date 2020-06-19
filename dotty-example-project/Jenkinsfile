@@ -7,6 +7,11 @@ pipeline {
         REPORT_PATH_SUB_PROJECT = "${env.WORKSPACE}/${PROJECT_NAME}/reports/${SUB_PROJECT_NAME}/dependency-check-report.xml"
     }
     stages {
+        stage('dependency'){
+            steps{
+                dependencyCheckPublisher pattern: "reports/**/**.xml"
+            }
+        }/*
         stage('Compile') {
             parallel {
                 stage('Compile sbt') {
@@ -38,7 +43,7 @@ pipeline {
                     sh 'sbt dependencyCheck'
                     sh "mv reports/${PROJECT_NAME}/dependency-check-report.html reports/${PROJECT_NAME}/dependency-check-report-sbt.html"
                     archiveArtifacts artifacts: "reports/${PROJECT_NAME}/**.html"
-                    dependencyCheckPublisher pattern: "reports/**/**.xml"
+                    dependencyCheckPublisher pattern: "reports/*/*/**.xml"
                 }
             }
             post{
@@ -65,7 +70,7 @@ pipeline {
                     }
                 }
             }
-        }
+        }*/
     }
     /*post{
         always {
