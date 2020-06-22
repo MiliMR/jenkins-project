@@ -28,11 +28,12 @@ pipeline {
         stage('Dependencies Check') {
             steps {
                 dir("${PROJECT_NAME}/${SUB_PROJECT_NAME}"){
-                    sh 'mvn dependency-check:check -Dformats=XML,HTML -Pintegration-tests'   
+                    sh 'mvn dependency-check:check -Dformats=XML,HTML -Pintegration-tests' 
+                    archiveArtifacts artifacts: "reports/${SUB_PROJECT_NAME}/**.html"
                 }
                 dir("${PROJECT_NAME}"){
                     //sh "mv reports/${SUB_PROJECT_NAME}/dependency-check-report.html reports/${SUB_PROJECT_NAME}/dependency-check-report-mvn.html"
-                    archiveArtifacts artifacts: "reports/${SUB_PROJECT_NAME}/**.html"
+                    
                     //dependencyCheckPublisher pattern: "reports/${SUB_PROJECT_NAME}/**.xml"
                     
                     sh 'sbt dependencyCheck'
