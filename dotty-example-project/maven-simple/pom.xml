@@ -90,7 +90,7 @@
                                 <format>HTML</format>
                                 <format>XML</format>
                             </formats>-->
-                            <outputDirectory>../reports/maven-simple</outputDirectory>
+                            <outputDirectory>${env.REPORTS_OUTPUT}/maven-simple</outputDirectory>
                         </configuration>
                         <executions>
                             <execution>
