@@ -73,10 +73,10 @@ pipeline {
                 }
             }
         }
-    }/*
+    }
     post {
         always {
           sh "rm -rf ${env.WORKSPACE}/${PROJECT_NAME}/reports"
         }
-    }*/
+    }
 }
