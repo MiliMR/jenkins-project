@@ -3,8 +3,9 @@ pipeline {
     environment {
         PROJECT_NAME = 'dotty-example-project'
         SUB_PROJECT_NAME = 'maven-simple'
-        REPORT_PATH_PROJECT = "${env.WORKSPACE}/${PROJECT_NAME}/reports/${PROJECT_NAME}/dependency-check-report.xml"
-        REPORT_PATH_SUB_PROJECT = "${env.WORKSPACE}/${PROJECT_NAME}/reports/${SUB_PROJECT_NAME}/dependency-check-report.xml"
+        REPORTS_OUTPUT = "${env.WORKSPACE}/${PROJECT_NAME}/reports"
+        REPORT_PATH_PROJECT = "${REPORTS_OUTPUT}/${PROJECT_NAME}/dependency-check-report.xml"
+        REPORT_PATH_SUB_PROJECT = "${REPORTS_OUTPUT}/${SUB_PROJECT_NAME}/dependency-check-report.xml"
     }
     stages {
         stage('Compile') {
@@ -29,7 +30,7 @@ pipeline {
             steps {
                 dir("${PROJECT_NAME}/${SUB_PROJECT_NAME}"){
                     sh 'mvn dependency-check:check -Dformats=XML,HTML -Pintegration-tests' 
-                    archiveArtifacts artifacts: "**/reports/${SUB_PROJECT_NAME}/**.html"
+                    archiveArtifacts artifacts: "${REPORTS_OUTPUT}/${SUB_PROJECT_NAME}/**.html"
                 }
                 dir("${PROJECT_NAME}"){
                     //sh "mv reports/${SUB_PROJECT_NAME}/dependency-check-report.html reports/${SUB_PROJECT_NAME}/dependency-check-report-mvn.html"
@@ -38,7 +39,7 @@ pipeline {
                     
                     sh 'sbt dependencyCheck'
                     //sh "mv reports/${PROJECT_NAME}/dependency-check-report.html reports/${PROJECT_NAME}/dependency-check-report-sbt.html"
-                    archiveArtifacts artifacts: "reports/${PROJECT_NAME}/**.html"
+                    archiveArtifacts artifacts: "${REPORTS_OUTPUT}/${PROJECT_NAME}/**.html"
                     //dependencyCheckPublisher pattern: "reports/**/*.xml"
                 }
             }
