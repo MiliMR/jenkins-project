@@ -31,7 +31,7 @@ pipeline {
                 dir("${PROJECT_NAME}/${SUB_PROJECT_NAME}"){
                     sh 'mvn dependency-check:check -Dformats=XML,HTML -Pintegration-tests'   
                 }
-                archiveArtifacts artifacts: "${REPORTS_OUTPUT}/${SUB_PROJECT_NAME}/**.html"
+                archiveArtifacts artifacts: "${PROJECT_NAME}/reports/${SUB_PROJECT_NAME}/**.html"
                 dir("${PROJECT_NAME}"){
                     //sh "mv reports/${SUB_PROJECT_NAME}/dependency-check-report.html reports/${SUB_PROJECT_NAME}/dependency-check-report-mvn.html"
                     
@@ -42,7 +42,7 @@ pipeline {
                     
                     //dependencyCheckPublisher pattern: "reports/**/*.xml"
                 }
-                archiveArtifacts artifacts: "${REPORTS_OUTPUT}/${PROJECT_NAME}/**.html"
+                archiveArtifacts artifacts: "${PROJECT_NAME}/reports/${PROJECT_NAME}/**.html"
             }
             post{
                 unstable{
