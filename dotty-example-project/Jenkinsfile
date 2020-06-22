@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Compile') {
             parallel {
-                stage('Compile sbt' + PROJECT_NAME) {
+                stage('Compile sbt'+"${PROJECT_NAME}") {
                     steps {
                         dir("${PROJECT_NAME}"){
                             sh 'sbt clean compile'
