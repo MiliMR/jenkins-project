@@ -31,12 +31,12 @@ pipeline {
                     sh 'mvn dependency-check:check -Dformats=XML,HTML -Pintegration-tests'   
                 }
                 dir("${PROJECT_NAME}"){
-                    sh "mv reports/${SUB_PROJECT_NAME}/dependency-check-report.html reports/${SUB_PROJECT_NAME}/dependency-check-report-mvn.html"
+                    //sh "mv reports/${SUB_PROJECT_NAME}/dependency-check-report.html reports/${SUB_PROJECT_NAME}/dependency-check-report-mvn.html"
                     archiveArtifacts artifacts: "reports/${SUB_PROJECT_NAME}/**.html"
                     //dependencyCheckPublisher pattern: "reports/${SUB_PROJECT_NAME}/**.xml"
                     
                     sh 'sbt dependencyCheck'
-                    sh "mv reports/${PROJECT_NAME}/dependency-check-report.html reports/${PROJECT_NAME}/dependency-check-report-sbt.html"
+                    //sh "mv reports/${PROJECT_NAME}/dependency-check-report.html reports/${PROJECT_NAME}/dependency-check-report-sbt.html"
                     archiveArtifacts artifacts: "reports/${PROJECT_NAME}/**.html"
                     //dependencyCheckPublisher pattern: "reports/**/*.xml"
                 }
@@ -70,7 +70,7 @@ pipeline {
     }
     post {
         always {
-          sh 'rm -rf reports'
+          sh "rm -rf ${env.WORKSPACE}/${PROJECT_NAME}/reports"
         }
     }
 }
