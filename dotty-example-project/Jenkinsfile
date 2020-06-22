@@ -29,9 +29,9 @@ pipeline {
         stage('Dependencies Check') {
             steps {
                 dir("${PROJECT_NAME}/${SUB_PROJECT_NAME}"){
-                    sh 'mvn dependency-check:check -Dformats=XML,HTML -Pintegration-tests' 
-                    archiveArtifacts artifacts: "${REPORTS_OUTPUT}/${SUB_PROJECT_NAME}/**.html"
+                    sh 'mvn dependency-check:check -Dformats=XML,HTML -Pintegration-tests'   
                 }
+                archiveArtifacts artifacts: "${REPORTS_OUTPUT}/${SUB_PROJECT_NAME}/**.html"
                 dir("${PROJECT_NAME}"){
                     //sh "mv reports/${SUB_PROJECT_NAME}/dependency-check-report.html reports/${SUB_PROJECT_NAME}/dependency-check-report-mvn.html"
                     
@@ -39,9 +39,10 @@ pipeline {
                     
                     sh 'sbt dependencyCheck'
                     //sh "mv reports/${PROJECT_NAME}/dependency-check-report.html reports/${PROJECT_NAME}/dependency-check-report-sbt.html"
-                    archiveArtifacts artifacts: "${REPORTS_OUTPUT}/${PROJECT_NAME}/**.html"
+                    
                     //dependencyCheckPublisher pattern: "reports/**/*.xml"
                 }
+                archiveArtifacts artifacts: "${REPORTS_OUTPUT}/${PROJECT_NAME}/**.html"
             }
             post{
                 unstable{
