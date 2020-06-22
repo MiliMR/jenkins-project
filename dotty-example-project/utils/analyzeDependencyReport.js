@@ -16,7 +16,7 @@ function analyze (reportPath){
             return "Vulnerabilities Found ";
         }
     } catch (exception) {
-        if (exception.code == 'ENOENT') {
+        if (exception.code === 'ENOENT') {
             console.log("Invalid path : " + reportPath);
         }
         throw exception;
