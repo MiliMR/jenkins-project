@@ -39,11 +39,12 @@ pipeline {
                     //dependencyCheckPublisher pattern: "reports/${SUB_PROJECT_NAME}/**.xml"
                     
                     sh 'sbt dependencyCheck'
-                    archiveArtifacts artifacts: "${PROJECT_NAME}/reports/${PROJECT_NAME}/**.html"
+                    
                     //sh "mv reports/${PROJECT_NAME}/dependency-check-report.html reports/${PROJECT_NAME}/dependency-check-report-sbt.html"
                     
                     //dependencyCheckPublisher pattern: "reports/**/*.xml"
                 }
+                archiveArtifacts artifacts: "${PROJECT_NAME}/reports/${PROJECT_NAME}/**.html"
                 
             }
             post{
