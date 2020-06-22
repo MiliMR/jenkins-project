@@ -6,7 +6,7 @@ lazy val root = project
     version := "0.1.0",
     scalaVersion := "0.24.0-RC1",
     dependencyCheckFormats := Seq("XML","HTML"),
-    dependencyCheckOutputDirectory := Some(file("./reports/dotty-example-project"))
+    dependencyCheckOutputDirectory := Some(file(sys.env.get("REPORTS_OUTPUT").get+"/dotty-example-project"))
   )
 
   libraryDependencies ++= Seq(
