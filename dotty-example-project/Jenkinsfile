@@ -3,7 +3,7 @@ pipeline {
     environment {
         PROJECT_NAME = "dotty-example-project"
         SUB_PROJECT_NAME = "maven-simple"
-        REPORTS_OUTPUT = "${env.WORKSPACE}/${PROJECT_NAME}/reports"
+        REPORTS_OUTPUT = "${env.WORKSPACE}/reports"
         REPORT_PATH_PROJECT = "${REPORTS_OUTPUT}/${PROJECT_NAME}/dependency-check-report.xml"
         REPORT_PATH_SUB_PROJECT = "${REPORTS_OUTPUT}/${SUB_PROJECT_NAME}/dependency-check-report.xml"
     }
@@ -32,7 +32,7 @@ pipeline {
                     sh 'mvn dependency-check:check -Dformats=XML,HTML -Pintegration-tests'   
                     
                 }
-                archiveArtifacts artifacts: "${PROJECT_NAME}/reports/${SUB_PROJECT_NAME}/**.html"
+                //archiveArtifacts artifacts: "reports/${SUB_PROJECT_NAME}/**.html"
                 dir("${PROJECT_NAME}"){
                     //sh "mv reports/${SUB_PROJECT_NAME}/dependency-check-report.html reports/${SUB_PROJECT_NAME}/dependency-check-report-mvn.html"
                     
@@ -44,7 +44,7 @@ pipeline {
                     
                     //dependencyCheckPublisher pattern: "reports/**/*.xml"
                 }
-                archiveArtifacts artifacts: "${PROJECT_NAME}/reports/${PROJECT_NAME}/**.html"
+                //archiveArtifacts artifacts: "reports/${PROJECT_NAME}/**.html"
                 
             }
             post{
@@ -53,6 +53,11 @@ pipeline {
                 }
             }
         }
+         stage('Save artifacts') {
+            steps {
+                archiveArtifacts artifacts: "reports/**/dependency-check-report.html"
+            }
+         }
         stage('Analysis Of Dependency Check Report') {
             steps {
                 dir("${PROJECT_NAME}/utils"){
@@ -76,7 +81,7 @@ pipeline {
     }
     post {
         always {
-          sh "rm -rf ${env.WORKSPACE}/${PROJECT_NAME}/reports"
+          sh "rm -rf ${REPORTS_OUTPUT}"
         }
     }
 }
