@@ -68,9 +68,9 @@ pipeline {
             }
         }
     }
-    /*post{
+    post {
         always {
-            deleteDir()
+          sh 'rm -rf reports'
         }
-    }*/
+    }
 }
