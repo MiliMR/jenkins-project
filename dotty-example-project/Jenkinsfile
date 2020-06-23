@@ -3,7 +3,7 @@ pipeline {
     environment {
         PROJECT_NAME = "dotty-example-project"
         SUB_PROJECT_NAME = "maven-simple"
-        REPORTS_OUTPUT = "${env.WORKSPACE}/reports"
+        //REPORTS_OUTPUT = "${env.WORKSPACE}/reports"
         REPORT_PATH_PROJECT = "${REPORTS_OUTPUT}/${PROJECT_NAME}/dependency-check-report.xml"
         REPORT_PATH_SUB_PROJECT = "${REPORTS_OUTPUT}/${SUB_PROJECT_NAME}/dependency-check-report.xml"
     }
